@@ -15,10 +15,13 @@ label start:
 
 
     # 배경 이미지 띄우기
-    transform full_bg:
-        size (1920, 1080)
+    # transform full_bg:
+    #     size (1920, 1080)
 
-    scene background at full_bg
+    # scene background at full_bg
+
+    # main_screen 띄우기
+    show screen main_screen()
 
     # main_loop로 이동
-    jump main_loop
+    jump main_loo기

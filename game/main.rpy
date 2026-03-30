@@ -13,9 +13,12 @@ label start:
 
     system "game/core/game_loop.rpy - main_loop 이동"
 
+
+    # 배경 이미지 띄우기
     transform full_bg:
         size (1920, 1080)
 
     scene background at full_bg
 
+    # main_loop로 이동
     jump main_loop

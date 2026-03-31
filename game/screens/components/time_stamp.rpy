@@ -1,7 +1,7 @@
 screen time_stamp():
     frame:
         hbox:
-            text "[player.times.current_year] /" style "test"
+            textbutton "[player.times.current_year] /" style "test" action Show("plain_screen")
             text "[player.times.current_month]  /"
             text "[player.times.current_day]  /"
 

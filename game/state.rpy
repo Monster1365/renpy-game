@@ -26,8 +26,6 @@ init python:
             self.profile = Profile()
             self.status = Status()
             self.times = Times()
-            
-
 
 init:
 

@@ -23,5 +23,6 @@ label start:
     # main_screen 띄우기
     show screen main_screen()
 
+
     # main_loop로 이동
     jump main_loop

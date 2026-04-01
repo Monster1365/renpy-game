@@ -1,4 +1,4 @@
-screen time_stamp():
+screen time_stamp_component():
     frame:
         hbox:
             textbutton "[player.times.current_year] /" style "test" action Show("plain_screen", inner_screen="test_cmp")

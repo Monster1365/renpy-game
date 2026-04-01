@@ -30,9 +30,9 @@ init python:
 init:
 
     # 화면 비율 설정
-    define TOP_HEIGHT = 100
-    define MIDDLE_HEIGHT = 880
-    define BOTTOM_HEIGHT = 100
+    define TOP_LAYOUT_HEIGHT = 100
+    define MIDDLE_LAYOUT_HEIGHT = 880
+    define BOTTOM_LAYOUT_HEIGHT = 100
 
     # 환경변수 설정
     define TIME_DISPLAY = "days" # or weeks

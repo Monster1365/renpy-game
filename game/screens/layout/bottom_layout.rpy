@@ -7,6 +7,6 @@ screen bottom_layout():
         background "#c9ffca"
         yfill True
         xfill True
-        ysize BOTTOM_HEIGHT
+        ysize BOTTOM_LAYOUT_HEIGHT
 
         text "bottom"

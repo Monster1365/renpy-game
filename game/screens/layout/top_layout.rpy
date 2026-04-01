@@ -7,6 +7,6 @@ screen top_layout():
         background "#d9dcff"
         yfill True
         xfill True
-        ysize TOP_HEIGHT
+        ysize TOP_LAYOUT_HEIGHT
 
-        use time_stamp
+        use time_stamp_component

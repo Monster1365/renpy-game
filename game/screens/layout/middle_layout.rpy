@@ -7,6 +7,6 @@ screen middle_layout():
         background "#ffd5d5"
         yfill True
         xfill True
-        ysize MIDDLE_HEIGHT
+        ysize MIDDLE_LAYOUT_HEIGHT
 
         text "middle"

@@ -25,9 +25,11 @@ init python:
 #
 #
     class MenuButton(Action):
+        # 객체가 생성될때 초기화되는 매직 메서드
         def __init__(self, option):
             self.option = option
 
+        # 객체를 함수처럼 호출할수 있게 해주는 매직 메서드
         def __call__(self):
             renpy.jump(menu_button[self.option]) # game/label/action_label로 이동
 

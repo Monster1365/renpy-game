@@ -5,6 +5,20 @@
 
 ## 객체로 상태 관리
 init python:
+
+    ## 선택 상태 - 딕셔너리로 저장
+    ## staus, schedule 등의 선택을 넣는 딕셔너리 구조
+    #
+    #
+    menu_btn_options = {
+        "status": "status_button_label",
+        "schedule": "schedule_button_label",
+        "inventory": "inventory_button_label",
+        "outing": "outing_button_label",
+    }
+    
+
+
     class Profile:
         def __init__(self):
             self.name = "character"
@@ -14,6 +28,11 @@ init python:
     class Status:
         def __init__(self):
             self.hp = 100
+            self.strength = 100
+            self.attraction = 100
+            self.morality = 100
+            self.intellect = 100
+            self.stress = 100
 
     class Times:
         def __init__(self):
@@ -41,11 +60,13 @@ init:
     # 환경변수 설정
     define TIME_DISPLAY = "days" # or weeks
 
-    # 기본 설정 값
+    # 기본 설정 값김
     define MAX_YEAR = 8
     define MAX_MONTH = 12
     define MAX_DAY = 30
 
+    # 메뉴 화면이 보이는 상태인지 아닌지 상태를 저장하는 변수
+    default is_visible_menu = True
 
     ## 게임 진행중 동적으로 변하는 변수 상태 관리 객체 생성
     default player = Player()

@@ -9,4 +9,5 @@ screen middle_layout():
         xfill True
         ysize MIDDLE_LAYOUT_HEIGHT
 
-        use menu_component
+        if is_visible_menu:
+            use menu_component

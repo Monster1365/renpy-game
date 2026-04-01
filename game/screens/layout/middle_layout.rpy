@@ -9,4 +9,4 @@ screen middle_layout():
         xfill True
         ysize MIDDLE_LAYOUT_HEIGHT
 
-        text "middle"
+        use menu_component

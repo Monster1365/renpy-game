@@ -29,6 +29,10 @@ init python:
 
 init:
 
+    # 화면 최대 크기
+    define X_FULL = 1920
+    define Y_FULL = 1080
+
     # 화면 비율 설정
     define TOP_LAYOUT_HEIGHT = 100
     define MIDDLE_LAYOUT_HEIGHT = 880

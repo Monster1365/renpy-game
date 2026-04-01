@@ -4,7 +4,7 @@
 
 
 screen test_cmp:
-    button: ##팝업 화면 내 버튼 클릭으로 plain_screen닫히는거 방지(이중크릭 방지)
+    button: ##팝업 화면 내 버튼 클릭으로 plain_screen닫히는거 방지(클릭이 plain_screen으로 넘어가지 않게 방지)
         action NullAction()
 
         frame:

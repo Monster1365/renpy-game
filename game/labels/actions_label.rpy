@@ -11,14 +11,17 @@ label status_button_label:
 
 
 ## 아래는 구현해야할 것들
-# label schedule_button_label:
-#     call screen plain_screen(inner_screen="schedule_component")
-#     jump main_loop
+label schedule_button_label:
+    call screen plain_screen(inner_screen="schedule_component")
+    show screen menu_component
+    jump main_loop
 
-# label status_button_label:
-#     call screen plain_screen(inner_screen="status_component")
-#     jump main_loop
+label inventory_button_label:
+    call screen plain_screen(inner_screen="inventory_component")
+    show screen menu_component
+    jump main_loop
 
-# label status_button_label:
-#     call screen plain_screen(inner_screen="status_component")
-#     jump main_loop
+label outing_button_label:
+    call screen plain_screen(inner_screen="outing_component")
+    show screen menu_component
+    jump main_loop

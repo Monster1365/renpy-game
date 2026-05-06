@@ -2,7 +2,7 @@
 #
 #
 
-screen status_component:
+screen status_component():
     button:
         xalign 1.0
         yalign 0.5
@@ -11,23 +11,60 @@ screen status_component:
         
         frame:
 
-            xsize 600
-            ysize 450
+            xsize 350
+            ysize 500
+            
+            xpadding 20
+            ypadding 20
+
             background "#706ddb"
 
-            # 'c'는 Center(내용), 'r'은 Right(스크롤바)
-            side "c r":
-                spacing 5 # 내용과 스크롤바 사이 간격
+            vbox:
+                spacing 15
+                text "status info"
 
-                # 1. 뷰포트 정의 (반드시 id를 부여해야 함)
-                viewport id "my_vp":
-                    mousewheel True
-                    
-                    vbox:
-                        spacing 10
-                        for i in range(1, 31):
-                            text "리스트 항목 [i]" color "#fff"
+                vbox:
+                    spacing 10
 
-                # 2. 커스텀 스크롤바 정의
-                # value에 YScrollValue("뷰포트ID")를 넣으면 연동됨
-                vbar value YScrollValue("my_vp")
+                    $ titleColor = '#fff'
+
+                    grid 2 1:
+                        xfill True
+                        text "체력:" color titleColor xalign 0.0
+                        text "[player.status.hp]" color titleColor xalign 1.0
+
+                    grid 2 1:
+                        xfill True
+                        text "근력:" color titleColor xalign 0.0
+                        text "[player.status.strength]" color titleColor xalign 1.0
+
+                    grid 2 1:
+                        xfill True
+                        text "매력:  " color titleColor xalign 0.0
+                        text "[player.status.attraction]" color titleColor xalign 1.0
+
+                    grid 2 1:
+                        xfill True
+                        text "도덕성: " color titleColor xalign 0.0
+                        text "[player.status.morality]" color titleColor xalign 1.0
+
+                    grid 2 1:
+                        xfill True
+                        text "지력:  " color titleColor xalign 0.0
+                        text "[player.status.intellect]" color titleColor xalign 1.0
+
+                    grid 2 1:
+                        xfill True
+                        text "스트레스:" color titleColor xalign 0.0
+                        text "[player.status.stress]" color titleColor xalign 1.0
+
+                    grid 2 1:
+                        xfill True
+                        text "사회성: " color titleColor xalign 0.0
+                        text "[player.status.sociality]" color titleColor xalign 1.0
+
+                    grid 2 1:
+                        xfill True
+                        text "예의:  " color titleColor xalign 0.0
+                        text "[player.status.attitude]" color titleColor xalign 1.0
+

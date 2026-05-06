@@ -1,13 +1,10 @@
 ## 게임 실행시 가장 먼저 동작되야할 파일
 # game_loop 실행, 스크린 띄우기, 기본 변수 초기화
 
-
-# 게임에서 사용할 캐릭터를 정의합니다.
-define system = Character('system', color="#c8ffc8")
-
-
 # 여기에서부터 게임이 시작합니다.
 label start:
+
+    call init_setting_label
 
     system "대충 스토리가 나옴"
 

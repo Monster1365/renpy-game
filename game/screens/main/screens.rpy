@@ -286,7 +286,7 @@ style quick_button_text:
 
 screen navigation():
 
-    vbox:
+    hbox:
         style_prefix "navigation"
 
         xpos gui.navigation_xpos

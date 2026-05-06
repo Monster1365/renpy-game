@@ -22,17 +22,20 @@ init python:
     class Profile:
         def __init__(self):
             self.name = "character"
+            self.birthday = None
             self.age = 10
             self.money = 600
     
     class Status:
         def __init__(self):
-            self.hp = 100
-            self.strength = 100
-            self.attraction = 100
-            self.morality = 100
-            self.intellect = 100
-            self.stress = 100
+            self.hp = 30
+            self.strength = 30
+            self.attraction = 0
+            self.morality = 0
+            self.intellect = 0
+            self.stress = 0
+            self.sociality = 0
+            self.attitude = 0
 
     class Times:
         def __init__(self):
@@ -47,6 +50,9 @@ init python:
             self.times = Times()
 
 init:
+
+    # 게임에서 사용할 시스템 대화창을 정의합니다.
+    define system = Character('system', color="#c8ffc8")
 
     # 화면 최대 크기
     define X_FULL = 1920

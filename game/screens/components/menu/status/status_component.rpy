@@ -3,6 +3,7 @@
 #
 
 screen status_component():
+    # 버튼으로 감싸는 이유는 plain_screen 터치 방지 하려고 그런거임
     button:
         xalign 1.0
         yalign 0.5

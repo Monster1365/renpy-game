@@ -16,6 +16,15 @@ init python:
         "inventory": "inventory_button_label",
         "outing": "outing_button_label",
     }
+
+    schedule_options = {
+        "study": {
+            "study_room": "study_room_label",
+            "study_play_with_child": "study_play_with_child_label",
+            "study_language": "study_language_label",
+            "study_attitude": "study_attitude_label"
+        }
+    }
     
 
 

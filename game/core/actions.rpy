@@ -28,25 +28,22 @@ init python:
         def get_sensitive(self):
             return self.option in menu_btn_options
     
-    class ChooseSchedule(Action):
-        # 객체가 생성될때 초기화되는 매직 메서드
-        def __init__(self, option):
-            self.option = option
+    # 나중에 구현
+    # class ChooseSchedule(Action):
+    #     # 객체가 생성될때 초기화되는 매직 메서드
+    #     def __init__(self, option):
+    #         self.option = option
 
-        # 객체를 함수처럼 호출할수 있게 해주는 매직 메서드
-        def __call__(self):
-            if self.option in schedule_options:
-                #renpy.store.is_visible_menu = False # 메뉴 버튼 모두 사라지게 하기
-                renpy.jump(schedule_options[self.option]) # game/label/action_label로 이동
-            else:
-                return
+    #     # 객체를 함수처럼 호출할수 있게 해주는 매직 메서드
+    #     def __call__(self):
+    #         if self.option in schedule_options:
+    #             #renpy.store.is_visible_menu = False # 메뉴 버튼 모두 사라지게 하기
+    #             renpy.jump(schedule_options[self.option]) # game/label/action_label로 이동
+    #         else:
+    #             return
         
-        def get_sensitive(self):
-            return self.option in schedule_options
-        ## ###
-
-
-###########
+    #     def get_sensitive(self):
+    #         return self.option in schedule_options
 
 
 ## 나중에 구현 할 것

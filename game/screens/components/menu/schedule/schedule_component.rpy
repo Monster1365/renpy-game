@@ -3,44 +3,47 @@
 #
 
 screen schedule_component:
-    default nowSelect = "test"
+    default nowSelect = ""
     default scheduleList = []
 
+    # button으로 감싸주는 이유는 plain_screen의 클릭과 중복돼서 현재 창이 닫히는걸 방지하려고
+    # 왼쪽 요소
     button:
         xalign 0.3
         yalign 0.5
         
+        # 이중클릭을 막아줌
         action NullAction()
 
         frame:
             xsize 550
             ysize 700
-            
             xpadding 20
             ypadding 20
-
             background "#706ddb"
+
             vbox:
                 spacing 20
-                # 이건 왼쪽 프레임
+
                 frame:
                     xsize 350
                     ysize 400
-
                     background "#aeeae8"
 
                     vbox:
                         spacing 10
+
                         text "schedule is empty..."
                         if scheduleList:
                             for i in scheduleList:
                                 pass
+
                 frame:
                     xsize 350
                     ysize 200
-
                     background "#aeeae8"
     
+    # 오른쪽 요소
     button:
         xalign 1.0
         yalign 0.5
@@ -53,57 +56,23 @@ screen schedule_component:
             xpadding 20
             ypadding 20
             background "#706ddb"
-
-            # 스케줄 눌렀을때 오른쪽에 표시되는 요소들
-            # 만약 else로 분기하면 가장 기본 화면을 띄움
-            #
-            # 학습
-            if nowSelect == "study":
-                pass
-
-            elif nowSelect == "work":
+            
+            # nowSelect가 False값을 가지지 않으면 학습, 알바, 휴식, 무사수행 등을 띄움
+            if nowSelect:
                 vbox:
                     spacing 30
                     xalign 0.5
                     yalign 0.5
-                    
-                    grid 3 2:
-                        spacing 10
 
-                        button:
-                            xsize 210
-                            ysize 100
-                            xpadding 10
-                            ypadding 10
-                            background "#cac9e5"
-
-                            text "집안일"
-
-                        button:
-                            xsize 210
-                            ysize 100
-                            xpadding 10
-                            ypadding 10
-                            background "#cac9e5"
-
-                            text "과외"
-                        
-                        button:
-                            xsize 210
-                            ysize 100
-                            xpadding 10
-                            ypadding 10
-                            background "#cac9e5"
-
-                            text "병원봉사"
-                        button:
-                            xsize 210
-                            ysize 100
-                            xpadding 10
-                            ypadding 10
-                            background "#cac9e5"
-
-                            text "예절교육"
+                    # 분기 나눠서 컴포넌트를 화면에 띄움
+                    if nowSelect == "study":
+                        use study_component
+                    elif nowSelect == "work":
+                        use work_component
+                    elif nowSelect == "rest":
+                        use rest_component
+                    elif nowSelect == "work":
+                        use work_component
 
                     frame:
                         xsize 430
@@ -132,30 +101,40 @@ screen schedule_component:
                                 background "#cac9e5"
 
                                 text "돌아가기"
+
+                                action SetScreenVariable("nowSelect", "")
+            
+            # nowSelect가 False값이면 선택창 띄움
             else:
                 vbox:
-                    frame:
+                    spacing 10
+                    xalign 0.5
+                    yalign 0.5
+
+                    button:
                         xsize 500
-                        ysize 200
+                        ysize 150
                         background "#aaa9ca"
+                        text "학습"
+                        action SetScreenVariable("nowSelect", "study")
 
-                        textbutton "[nowSelect]" action SetScreenVariable("nowSelect", "study")
+                    button:
+                        xsize 500
+                        ysize 150
+                        background "#aaa9ca"
+                        text "알바"
+                        action SetScreenVariable("nowSelect", "work")
 
-label study_btn_label:
-    call screen plain_screen(inner_screen="study_screen")
+                    button:
+                        xsize 500
+                        ysize 150
+                        background "#aaa9ca"
+                        text "휴식"
+                        action SetScreenVariable("nowSelect", "rest")
 
-screen study_screen():
-    button:
-        xalign 1.0
-        yalign 0.5
-        
-        action NullAction()
-
-        frame:
-            xsize 550
-            ysize 700
-            
-            xpadding 20
-            ypadding 20
-
-            background "#74db6d"
+                    button:
+                        xsize 500
+                        ysize 150
+                        background "#aaa9ca"
+                        text "무사수행"
+                        action SetScreenVariable("nowSelect", "study")

@@ -1,5 +1,5 @@
-screen study_component():
-    grid 2 2:
+screen work_component():
+    grid 2 3:
         spacing 10
 
         button:
@@ -9,7 +9,7 @@ screen study_component():
             ypadding 10
             background "#cac9e5"
 
-            text "공부방"
+            text "집안일"
 
         button:
             xsize 210
@@ -18,7 +18,7 @@ screen study_component():
             ypadding 10
             background "#cac9e5"
 
-            text "아이들과 뛰어놀기"
+            text "과외"
         
         button:
             xsize 210
@@ -27,7 +27,7 @@ screen study_component():
             ypadding 10
             background "#cac9e5"
 
-            text "언어교육"
+            text "병원봉사"
         button:
             xsize 210
             ysize 100
@@ -35,4 +35,14 @@ screen study_component():
             ypadding 10
             background "#cac9e5"
 
-            text "예절교육"
+            text "옷가게"
+        button:
+            xsize 210
+            ysize 100
+            xpadding 10
+            ypadding 10
+            background "#cac9e5"
+
+            text "농장일"
+
+        

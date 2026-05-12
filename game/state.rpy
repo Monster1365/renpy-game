@@ -1,6 +1,7 @@
 ## 기본 변수 설정
 ## 딕셔너리로 관리, get/set으로 값 조회 및 수정
-#
+# 
+# todo : item class 구현하기
 #
 
 ## 객체로 상태 관리
@@ -17,14 +18,15 @@ init python:
         "outing": "outing_button_label",
     }
 
-    schedule_options = {
-        "study": {
-            "study_room": "study_room_label",
-            "study_play_with_child": "study_play_with_child_label",
-            "study_language": "study_language_label",
-            "study_attitude": "study_attitude_label"
-        }
-    }
+    # 나중에 구현
+    # schedule_options = {
+    #     "study": {
+    #         "study_room": "study_room_label",
+    #         "study_play_with_child": "study_play_with_child_label",
+    #         "study_language": "study_language_label",
+    #         "study_attitude": "study_attitude_label"
+    #     }
+    # }
     
 
 

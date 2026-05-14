@@ -28,28 +28,13 @@ screen inventory_component:
 
                 # 2. 조건에 따른 내용 표시
                 if inventory_options == "belongings":
-                    frame:
-                        xsize 600 ysize 400
-                        
-                        # vpgrid는 행(rows)이나 열(cols) 하나만 지정하면 개수가 모자라도 에러가 안 납니다.
-                        vpgrid:
-                            cols 5
-                            spacing 10
-                            mousewheel True
-                            draggable True
-                            scrollbars "vertical"
-
-                            # 테스트를 위해 아이템 10개를 반복 생성
-                            for i in range(10):
-                                textbutton "아이템 [i]":
-                                    xsize 100 ysize 100
-                                    action NullAction()
+                    use belongings_component
                                     
                 elif inventory_options == "clothes":
-                    text "옷장 카테고리입니다." xalign 0.5
+                    use clothes_component
                     
                 elif inventory_options == "books":
-                    text "책장 카테고리입니다." xalign 0.5
+                    use books_component
 
             # vpgrid:
             #     cols 4 # 열의 개수 고정, 행은 아이템 수에 따라 자동 생성

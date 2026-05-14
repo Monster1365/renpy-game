@@ -58,6 +58,11 @@ init python:
             self.current_day = 1
 
     class Player:
+        """
+        profile: Profile<obj> /
+        status: Status<obj> /
+        times: Times<obj>
+        """
         def __init__(self):
             self.profile = Profile()
             self.status = Status()
@@ -66,9 +71,9 @@ init python:
     # 아이템 데이터 정의
     class Item:
         """
-        ===================
+        ===============
         Parameter: Tpye
-        ===================
+        ===============
 
         serial: number,
         category: category -> inventory, shop, drop...
@@ -77,13 +82,114 @@ init python:
         price: positive number,
         variance: dict = {status: number},
         quantity: number | default = 0
+        isEquipable: boolean | default = False
+        isConsumable: boolean | default = False
+        hasEvent: boolean | default = False
+        isShopItem: boolean | default = False
         """
-        def __init__(self, serial, category, title, description, price, variance, quantity=0):
+        def __init__(
+                self,
+                serial,
+                category,
+                title,
+                description,
+                price,
+                variance,
+                quantity=0,
+                isEquipable=False,
+                isConsumable=False,
+                hasEvent=False,
+                isShopItem=False
+            ):
+                    
             self.serial = serial
             self.title = title
             self.description = description
             self.price = price
             self.variance = variance
+            self.quantity = quantity
+            self.isEquipable = isEquipable
+            self.isConsumable = isConsumable
+            self.hasEvent = hasEvent
+            self.isShopItem = isShopItem
+
+    class BelongingItem(Item):
+        def __init__(
+                self,
+                serial,
+                child_serial,
+                category,
+                title,
+                description,
+                price,
+                variance,
+                hasEvent=False,
+                isShopItem=False,
+                quantity=0,
+            ):
+            super(). __init__(
+                        serial,
+                        category,
+                        title,
+                        description,
+                        price,
+                        variance,
+                        hasEvent,
+                        isShopItem
+                    )
+            self.child_serial = child_serial
+            self.quantity = quantity
+    
+    class ClothesItem(Item):
+        def __init__(
+                self,
+                serial,
+                child_serial,
+                category,
+                title,
+                description,
+                price,
+                variance,
+                hasEvent=False,
+                isShopItem=False,
+            ):
+            super(). __init__(
+                        serial,
+                        category,
+                        title,
+                        description,
+                        price,
+                        variance,
+                        hasEvent,
+                        isShopItem
+                    )
+            self.child_serial = child_serial
+    
+    class BookItem(Item):
+        def __init__(
+                self,
+                serial,
+                child_serial,
+                category,
+                title,
+                description,
+                price,
+                variance,
+                hasEvent=False,
+                isShopItem=False,
+                quantity=0,
+            ):
+            super(). __init__(
+                        serial,
+                        category,
+                        title,
+                        description,
+                        price,
+                        variance,
+                        hasEvent,
+                        isShopItem
+                    )
+            self.child_serial = child_serial
             self.quantity = quantity
 
 init:
@@ -111,8 +217,9 @@ init:
 
     # 메뉴 화면이 보이는 상태인지 아닌지 상태를 저장하는 변수
     default is_visible_menu = True
-    default scheduleList = []
 
+    # 선택된 스케줄 저장용 변수
+    default scheduleList = []
 
 
     ## 게임 진행중 동적으로 변하는 변수 상태 관리 객체 생성
@@ -121,10 +228,12 @@ init:
 
     # 아이템 객체 생성
     # 예시) default book1 = Book()
+    default default_clothes = ClothesItem(0, 0, "buy", "기본옷", "기본옷입니다.", 0, {})
 
     # 아이템 객체 리스트
     # 아이템 시리얼 넘버 = index값
-    #default items = []
+    default items = [default_clothes]
+    default clothes_items = [default_clothes]
 
     
 

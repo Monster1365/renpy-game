@@ -9,4 +9,8 @@ screen top_layout():
         xfill True
         ysize TOP_LAYOUT_HEIGHT
 
-        use time_stamp_component
+        hbox:
+            spacing 20
+            use time_stamp_component
+            use show_money_component
+            use show_profile_component

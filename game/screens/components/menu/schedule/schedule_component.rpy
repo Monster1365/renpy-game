@@ -3,7 +3,6 @@
 #
 
 screen schedule_component:
-    default nowSelect = ""
     default componentSelect = ""
 
     # button으로 감싸주는 이유는 plain_screen의 클릭과 중복돼서 현재 창이 닫히는걸 방지하려고
@@ -99,9 +98,8 @@ screen schedule_component:
                                 ypadding 10
                                 background "#cac9e5"
 
-                                text "돌아가기"
-
-                                action SetScreenVariable("nowSelect", "")
+                                text "삭제하기"
+                                action [DeleteSchedule(), SetScreenVariable("componentSelect", "")]
             
             # nowSelect가 False값이면 선택창 띄움
             else:

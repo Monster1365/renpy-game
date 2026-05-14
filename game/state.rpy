@@ -82,8 +82,6 @@ init python:
         price: positive number,
         variance: dict = {status: number},
         quantity: number | default = 0
-        isEquipable: boolean | default = False
-        isConsumable: boolean | default = False
         hasEvent: boolean | default = False
         isShopItem: boolean | default = False
         """
@@ -96,8 +94,6 @@ init python:
                 price,
                 variance,
                 quantity=0,
-                isEquipable=False,
-                isConsumable=False,
                 hasEvent=False,
                 isShopItem=False
             ):
@@ -114,6 +110,10 @@ init python:
             self.isShopItem = isShopItem
 
     class BelongingItem(Item):
+        """
+        child_serial: number
+        quantity: number | defaut = 0
+        """
         def __init__(
                 self,
                 serial,
@@ -141,6 +141,9 @@ init python:
             self.quantity = quantity
     
     class ClothesItem(Item):
+        """
+        child_serial: number
+        """
         def __init__(
                 self,
                 serial,
@@ -166,6 +169,10 @@ init python:
             self.child_serial = child_serial
     
     class BookItem(Item):
+        """
+        child_serial: number
+        quantity: number | defaut = 0
+        """
         def __init__(
                 self,
                 serial,
@@ -218,6 +225,9 @@ init:
     # 메뉴 화면이 보이는 상태인지 아닌지 상태를 저장하는 변수
     default is_visible_menu = True
 
+    # 스케줄 선택 변수
+    default nowSelect = ""
+
     # 선택된 스케줄 저장용 변수
     default scheduleList = []
 
@@ -229,6 +239,9 @@ init:
     # 아이템 객체 생성
     # 예시) default book1 = Book()
     default default_clothes = ClothesItem(0, 0, "buy", "기본옷", "기본옷입니다.", 0, {})
+    default fafafsf = ClothesItem(1, 1, afafs, "fafaf",)
+    default fafsdfsfjk = BookItem(2, 0,)
+    default fakfjskfj = ClothesItem(3, 2)
 
     # 아이템 객체 리스트
     # 아이템 시리얼 넘버 = index값

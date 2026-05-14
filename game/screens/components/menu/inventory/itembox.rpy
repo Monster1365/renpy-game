@@ -1,14 +1,15 @@
 screen itembox(serial):
     default item = items[serial]
+    default img = ""
 
     button:
         action NullAction()
-        style_prefix "item"
-        xsize 100
-        ysize 100
+        style "itembox"
         
         vbox:
-            frame:
+            if img:
+                pass
+            else:
                 text item.title
 
             hbox:

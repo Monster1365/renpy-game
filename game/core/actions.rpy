@@ -52,6 +52,13 @@ init python:
         
         def get_sensitive(self):
             return self.option in schedule_options
+    
+    class DeleteSchedule(Action):
+        def __call__(self):
+            if scheduleList:
+                scheduleList.pop()
+            else:
+                return
 
 
 ## 나중에 구현 할 것

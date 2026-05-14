@@ -1,7 +1,13 @@
-style item_center:
+style center:
     align(0.5, 0.5)
 
-style item_padding10:
+style itembox:
+    xfill True
+    yfill True
+    xsize 100
+    ysize 100
+    background "#737297"
+    align(0.5, 0.5)
     padding (10, 10, 10, 10)
 
 style schedule_cmp_button:

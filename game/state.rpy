@@ -18,7 +18,17 @@ init python:
         "outing": "outing_button_label",
     }
 
-    schedule_options = ["studyroom"]
+    schedule_options = ["studyroom",
+                        "playwithchild",
+                        "learnlanguage",
+                        "learnattitude",
+                        "housework",
+                        "lesson",
+                        "hospitalwork",
+                        "clotheswork",
+                        "farmwork",
+                        "mindset",
+                        "outing"]
 
     ## 객체 정의
     # 플레이어 데이터 정의

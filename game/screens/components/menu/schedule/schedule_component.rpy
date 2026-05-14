@@ -69,7 +69,7 @@ screen schedule_component:
                         use work_component
                     elif nowSelect == "rest":
                         use rest_component
-                    elif nowSelect == "work":
+                    elif nowSelect == "adventure":
                         use work_component
 
                     frame:
@@ -136,4 +136,4 @@ screen schedule_component:
                         ysize 150
                         background "#aaa9ca"
                         text "무사수행"
-                        action SetScreenVariable("nowSelect", "study")
+                        action SetScreenVariable("nowSelect", "adventure")

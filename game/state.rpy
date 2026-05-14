@@ -18,18 +18,10 @@ init python:
         "outing": "outing_button_label",
     }
 
-    # 나중에 구현
-    # schedule_options = {
-    #     "study": {
-    #         "study_room": "study_room_label",
-    #         "study_play_with_child": "study_play_with_child_label",
-    #         "study_language": "study_language_label",
-    #         "study_attitude": "study_attitude_label"
-    #     }
-    # }
-    
+    schedule_options = ["studyroom"]
 
-
+    ## 객체 정의
+    # 플레이어 데이터 정의
     class Profile:
         def __init__(self):
             self.name = "character"
@@ -60,8 +52,32 @@ init python:
             self.status = Status()
             self.times = Times()
 
+    # 아이템 데이터 정의
+    class Item:
+        """
+        ===================
+        Parameter: Tpye
+        ===================
+
+        serial: number,
+        category: category -> inventory, shop, drop...
+        title: string,
+        description: string,
+        price: positive number,
+        variance: dict = {status: number},
+        quantity: number | default = 0
+        """
+        def __init__(self, serial, category, title, description, price, variance, quantity=0):
+            self.serial = serial
+            self.title = title
+            self.description = description
+            self.price = price
+            self.variance = variance
+            self.quantity = quantity
+
 init:
 
+    ## 게임 환경 설정
     # 게임에서 사용할 시스템 대화창을 정의합니다.
     define system = Character('system', color="#c8ffc8")
 
@@ -84,9 +100,23 @@ init:
 
     # 메뉴 화면이 보이는 상태인지 아닌지 상태를 저장하는 변수
     default is_visible_menu = True
+    default scheduleList = []
+
+
 
     ## 게임 진행중 동적으로 변하는 변수 상태 관리 객체 생성
+    # 플레이어 객체
     default player = Player()
+
+    # 아이템 객체 생성
+    # 예시) default book1 = Book()
+
+    # 아이템 객체 리스트
+    # 아이템 시리얼 넘버 = index값
+    #default items = []
+
+    
+
 
 
     ## 이미지 불러오는 방식

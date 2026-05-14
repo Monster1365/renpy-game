@@ -6,7 +6,10 @@
 
 screen plain_screen(inner_screen):
     button:
-        action [Hide(inner_screen), Hide("plain_screen"), Return()]
+        if inner_screen == "schedule_component":
+            action [Function(clearSchedule), Hide(inner_screen), Hide("plain_screen"), Return()]
+        else:
+            action [Hide(inner_screen), Hide("plain_screen"), Return()]
 
         frame:
             xfill True

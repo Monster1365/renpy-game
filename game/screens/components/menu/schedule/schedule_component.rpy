@@ -4,13 +4,12 @@
 
 screen schedule_component:
     default nowSelect = ""
-    default scheduleList = []
+    default componentSelect = ""
 
     # button으로 감싸주는 이유는 plain_screen의 클릭과 중복돼서 현재 창이 닫히는걸 방지하려고
     # 왼쪽 요소
     button:
-        xalign 0.3
-        yalign 0.5
+        align (0.3, 0.5)
         
         # 이중클릭을 막아줌
         action NullAction()
@@ -18,51 +17,50 @@ screen schedule_component:
         frame:
             xsize 550
             ysize 700
-            xpadding 20
-            ypadding 20
+            padding (20, 20, 20, 20)
+            align (0.5, 0.5)
             background "#706ddb"
 
             vbox:
                 spacing 20
+                align (0.5, 0.5)
 
                 frame:
-                    xsize 350
+                    xsize 500
                     ysize 400
                     background "#aeeae8"
 
                     vbox:
                         spacing 10
 
-                        text "schedule is empty..."
                         if scheduleList:
                             for i in scheduleList:
-                                pass
+                                text i
+                        else:
+                            text "schedule is empty..."
 
                 frame:
-                    xsize 350
+                    xsize 500
                     ysize 200
                     background "#aeeae8"
     
     # 오른쪽 요소
     button:
-        xalign 1.0
-        yalign 0.5
+        align (1.0, 0.5)
         
         action NullAction()
 
         frame:
             xsize 550
             ysize 700
-            xpadding 20
-            ypadding 20
+            padding (20, 20)
             background "#706ddb"
             
             # nowSelect가 False값을 가지지 않으면 학습, 알바, 휴식, 무사수행 등을 띄움
             if nowSelect:
                 vbox:
                     spacing 30
-                    xalign 0.5
-                    yalign 0.5
+                    align (0.5, 0.5)
 
                     # 분기 나눠서 컴포넌트를 화면에 띄움
                     if nowSelect == "study":
@@ -93,6 +91,7 @@ screen schedule_component:
                                 background "#cac9e5"
 
                                 text "스케줄 넣기"
+                                action ChooseSchedule("schedule_component: ChooseSchedule()", componentSelect)
                             button:
                                 xsize 430
                                 ysize 100

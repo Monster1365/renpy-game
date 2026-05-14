@@ -28,22 +28,30 @@ init python:
         def get_sensitive(self):
             return self.option in menu_btn_options
     
-    # 나중에 구현
-    # class ChooseSchedule(Action):
-    #     # 객체가 생성될때 초기화되는 매직 메서드
-    #     def __init__(self, option):
-    #         self.option = option
+    
+    ## 스케줄 관련 액션
+    # 스케줄화면 나가거나 스케줄 돌릴때 발생, 스케줄 리스트 싹 비움
+    def clearSchedule():
+        renpy.store.scheduleList = []
 
-    #     # 객체를 함수처럼 호출할수 있게 해주는 매직 메서드
-    #     def __call__(self):
-    #         if self.option in schedule_options:
-    #             #renpy.store.is_visible_menu = False # 메뉴 버튼 모두 사라지게 하기
-    #             renpy.jump(schedule_options[self.option]) # game/label/action_label로 이동
-    #         else:
-    #             return
+    # 스케줄 넣기를 누르면 발생, option에서 확인하고 아니면 리턴
+    class ChooseSchedule(Action):
+        # 객체가 생성될때 초기화되는 매직 메서드
+        def __init__(self, context, option):
+            self.context = context
+            self.option = option
+
+        # 객체를 함수처럼 호출할수 있게 해주는 매직 메서드
+        def __call__(self):
+            # 올바른 옵션인지, 선택이 3보다 작은지 확인
+            if (self.option in schedule_options) and (len(scheduleList) < 3):
+                renpy.store.scheduleList.append(self.option)
+                renpy.restart_interaction()
+            else:
+                return
         
-    #     def get_sensitive(self):
-    #         return self.option in schedule_options
+        def get_sensitive(self):
+            return self.option in schedule_options
 
 
 ## 나중에 구현 할 것

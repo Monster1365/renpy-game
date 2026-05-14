@@ -9,7 +9,7 @@ screen rest_component():
             ypadding 10
             background "#cac9e5"
 
-            text "마음수"
+            text "마음수양"
 
         button:
             xsize 210

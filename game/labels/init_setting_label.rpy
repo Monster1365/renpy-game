@@ -22,7 +22,7 @@ label select_name_label:
 
 label select_birthday_label:
     system "select birthday"
-    call screen selet_birthday_screen
+    call screen select_birthday_screen
     return
 
 

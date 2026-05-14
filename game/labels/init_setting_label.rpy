@@ -5,6 +5,16 @@
 # 3. 생일 정하기
 #
 
+screen skip:
+    hbox:
+        spacing 10
+        button:
+            text "스킵 yes"
+            action [Hide("skip"), Return(True)]
+        button:
+            text "스킵 no"
+            action [Hide("skip"), Return(False)]
+
 label opening_label:
     system "opening"
     call screen opening_screen
@@ -25,11 +35,15 @@ label select_birthday_label:
     call screen select_birthday_screen
     return
 
-
 label init_setting_label:
+    default isSkip = False
 
     # 인게임 오프닝
-    call opening_label
+    $ isSkip =  renpy.call_screen("skip")
+    if isSkip:
+        $ isSkip = False
+    else:
+        call opening_label
 
     # 이름 정하기
     $ player_name = renpy.input("당신의 이름은 무엇인가요?", default="name")
@@ -37,9 +51,17 @@ label init_setting_label:
     call screen select_name_screen(player_name)
 
     # 생일 정하기
-    call screen selet_birthday_screen
+    $ isSkip =  renpy.call_screen("skip")
+    if isSkip:
+        $ isSkip = False
+    else:
+        call screen selet_birthday_screen
 
-
+    $ isSkip =  renpy.call_screen("skip")
+    if isSkip:
+        $ isSkip = False
+        return
+    
     "겨울비가 내리던 새벽이었다."
 
     "편의점 야간 아르바이트를 마치고 돌아가던 길, 당신은 골목 끝 버스정류장에서 한 아이를 발견했다."

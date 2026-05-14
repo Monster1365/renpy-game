@@ -28,7 +28,8 @@ init python:
                         "clotheswork",
                         "farmwork",
                         "mindset",
-                        "outing"]
+                        "outing",
+                        "adventure"]
 
     ## 객체 정의
     # 플레이어 데이터 정의

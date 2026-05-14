@@ -3,19 +3,11 @@ screen rest_component():
         spacing 10
 
         button:
-            xsize 210
-            ysize 100
-            xpadding 10
-            ypadding 10
-            background "#cac9e5"
-
+            style "schedule_cmp_button"
             text "마음수양"
+            action SetScreenVariable("componentSelect", "mindset")
 
         button:
-            xsize 210
-            ysize 100
-            xpadding 10
-            ypadding 10
-            background "#cac9e5"
-
+            style "schedule_cmp_button"
             text "외출"
+            action SetScreenVariable("componentSelect", "outing")

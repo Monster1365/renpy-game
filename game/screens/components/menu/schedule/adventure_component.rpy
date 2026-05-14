@@ -3,19 +3,6 @@ screen adventure_component:
         spacing 10
 
         button:
-            xsize 210
-            ysize 100
-            xpadding 10
-            ypadding 10
-            background "#cac9e5"
-
+            style "schedule_cmp_button"
             text "무사수행1"
-
-        button:
-            xsize 210
-            ysize 100
-            xpadding 10
-            ypadding 10
-            background "#cac9e5"
-
-            text "무사수행2"
+            action SetScreenVariable("componentSelect", "adventure")

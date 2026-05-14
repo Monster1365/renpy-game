@@ -70,7 +70,7 @@ screen schedule_component:
                     elif nowSelect == "rest":
                         use rest_component
                     elif nowSelect == "adventure":
-                        use work_component
+                        use adventure_component
 
                     frame:
                         xsize 430
@@ -91,7 +91,7 @@ screen schedule_component:
                                 background "#cac9e5"
 
                                 text "스케줄 넣기"
-                                action ChooseSchedule("schedule_component: ChooseSchedule()", componentSelect)
+                                action [ChooseSchedule("schedule_component: ChooseSchedule()", componentSelect), SetScreenVariable("componentSelect", "")]
                             button:
                                 xsize 430
                                 ysize 100

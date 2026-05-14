@@ -3,46 +3,29 @@ screen work_component():
         spacing 10
 
         button:
-            xsize 210
-            ysize 100
-            xpadding 10
-            ypadding 10
-            background "#cac9e5"
-
+            style "schedule_cmp_button"
             text "집안일"
+            action SetScreenVariable("componentSelect", "housework")
 
         button:
-            xsize 210
-            ysize 100
-            xpadding 10
-            ypadding 10
-            background "#cac9e5"
-
+            style "schedule_cmp_button"
             text "과외"
+            action SetScreenVariable("componentSelect", "lesson")
         
         button:
-            xsize 210
-            ysize 100
-            xpadding 10
-            ypadding 10
-            background "#cac9e5"
-
+            style "schedule_cmp_button"
             text "병원봉사"
-        button:
-            xsize 210
-            ysize 100
-            xpadding 10
-            ypadding 10
-            background "#cac9e5"
+            action SetScreenVariable("componentSelect", "hospitalwork")
 
+        button:
+            style "schedule_cmp_button"
             text "옷가게"
-        button:
-            xsize 210
-            ysize 100
-            xpadding 10
-            ypadding 10
-            background "#cac9e5"
+            action SetScreenVariable("componentSelect", "clotheswork")
 
+        button:
+            style "schedule_cmp_button"
             text "농장일"
+            action SetScreenVariable("componentSelect", "farmwork")
+
 
         

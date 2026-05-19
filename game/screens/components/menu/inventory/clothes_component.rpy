@@ -10,6 +10,6 @@ screen clothes_component:
             draggable True
             scrollbars "vertical"
 
-            # 테스트를 위해 아이템 10개를 반복 생성
             for i in clothes_items:
-                use itembox(i.serial)
+                if i.quantity > 0:
+                    use itembox(i.serial)

@@ -10,8 +10,6 @@ screen belongings_component:
             draggable True
             scrollbars "vertical"
 
-            # 테스트를 위해 아이템 10개를 반복 생성
-            for i in range(10):
-                textbutton "아이템 [i]":
-                    xsize 100 ysize 100
-                    action NullAction()
+            for i in belonging_items:
+                if i.quantity > 0:
+                    use itembox(i.serial)

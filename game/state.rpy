@@ -76,7 +76,7 @@ init python:
         ===============
 
         serial: number,
-        category: category -> inventory, shop, drop...
+        category: category -> default, shop, drop...
         title: string,
         description: string,
         price: positive number,
@@ -238,15 +238,25 @@ init:
 
     # 아이템 객체 생성
     # 예시) default book1 = Book()
+    # 옷
     default default_clothes = ClothesItem(0, 0, "buy", "기본옷", "기본옷입니다.", 0, {})
-    default fafafsf = ClothesItem(1, 1, afafs, "fafaf",)
-    default fafsdfsfjk = BookItem(2, 0,)
-    default fakfjskfj = ClothesItem(3, 2)
+
+    # 소모품
+    default cake = BelongingItem(1, 0, "shop", "케이크", "설명", 100, {}, False, True, 0)
+
+    # 책
+    default attitude_skill = BookItem(2, 0, "shop", "예의의 기술", "설명", 100, {}, False, True, 0)
 
     # 아이템 객체 리스트
     # 아이템 시리얼 넘버 = index값
-    default items = [default_clothes]
-    default clothes_items = [default_clothes]
+    define items = [
+        default_clothes,
+        cake,
+        attitude_skill
+    ]
+    define clothes_items = [default_clothes]
+    define belonging_items = [cake]
+    define book_items = [attitude_skill]
 
     
 

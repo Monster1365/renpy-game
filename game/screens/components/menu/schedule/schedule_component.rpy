@@ -42,6 +42,13 @@ screen schedule_component:
                     xsize 500
                     ysize 200
                     background "#aeeae8"
+                    
+                    # mouse를 hovor하면 tooltip이 생김
+                    $ tooltip = GetTooltip()
+                    if tooltip:
+                        text [tooltip]
+                    else:
+                        text "Nothing..."
     
     # 오른쪽 요소
     button:
@@ -112,6 +119,7 @@ screen schedule_component:
                         xsize 500
                         ysize 150
                         background "#aaa9ca"
+                        tooltip "학습에 대한 설명..."
                         text "학습"
                         action SetScreenVariable("nowSelect", "study")
 
@@ -119,6 +127,7 @@ screen schedule_component:
                         xsize 500
                         ysize 150
                         background "#aaa9ca"
+                        tooltip "알바에 대한 설명..."
                         text "알바"
                         action SetScreenVariable("nowSelect", "work")
 
@@ -126,6 +135,7 @@ screen schedule_component:
                         xsize 500
                         ysize 150
                         background "#aaa9ca"
+                        tooltip "휴식에 대한 설명..."
                         text "휴식"
                         action SetScreenVariable("nowSelect", "rest")
 
@@ -133,5 +143,6 @@ screen schedule_component:
                         xsize 500
                         ysize 150
                         background "#aaa9ca"
+                        tooltip "무사수행에 대한 설명..."
                         text "무사수행"
                         action SetScreenVariable("nowSelect", "adventure")

@@ -61,6 +61,18 @@ init python:
                 return
 
 
+    # 스테이터스 변화 액션
+    class ChangeStatus(Action):
+        def __init__(self, context, status, variate):
+            self.context = context
+            self.status = status
+            self.variate = variate
+
+        def __call__(self):
+            p = renpy.store.player.status
+            s = self.status
+            p.s += self.variate
+
 ## 나중에 구현 할 것
 ## 액션 예시
 #     class MyAction(Action):

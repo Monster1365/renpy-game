@@ -10,6 +10,6 @@ screen clothes_component:
             draggable True
             scrollbars "vertical"
 
-            for i in clothes_items:
-                if i.quantity > 0:
-                    use itembox(i.serial)
+            for key, value in items_quantity["clothes"].items():
+                if value > 0:
+                    use itembox(key)

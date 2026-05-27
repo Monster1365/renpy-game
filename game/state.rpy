@@ -71,133 +71,53 @@ init python:
     # 아이템 데이터 정의
     class Item:
         """
-        ===============
-        Parameter: Tpye
-        ===============
-
+        type: string -> clothes | belonging | book,
         serial: number,
+        type_serial: number,
         category: category -> default, shop, drop...
         title: string,
         description: string,
         price: positive number,
-        variance: dict = {status: number},
-        quantity: number | default = 0
-        hasEvent: boolean | default = False
-        isShopItem: boolean | default = False
+        variance: string,
+        quantity: number | default = 0,
+        isEquipable: boolean | default = False,
+        isConsumable: boolean | default = False,
+        hasEvent: boolean | default = False,
+        isShopItem: boolean | default = False,
         """
         def __init__(
                 self,
+                type,
                 serial,
+                type_serial,
                 category,
                 title,
                 description,
                 price,
-                variance,
-                quantity=0,
+                variance=None,
+                isEquipable=False,
+                isConsumable=False,
                 hasEvent=False,
                 isShopItem=False
             ):
-                    
+            
+            self.type = type
             self.serial = serial
+            self.type_serial = type_serial
             self.title = title
             self.description = description
             self.price = price
             self.variance = variance
-            self.quantity = quantity
             self.isEquipable = isEquipable
             self.isConsumable = isConsumable
             self.hasEvent = hasEvent
             self.isShopItem = isShopItem
-
-    class BelongingItem(Item):
-        """
-        child_serial: number
-        quantity: number | defaut = 0
-        """
-        def __init__(
-                self,
-                serial,
-                child_serial,
-                category,
-                title,
-                description,
-                price,
-                variance,
-                hasEvent=False,
-                isShopItem=False,
-                quantity=0,
-            ):
-            super(). __init__(
-                        serial,
-                        category,
-                        title,
-                        description,
-                        price,
-                        variance,
-                        hasEvent,
-                        isShopItem
-                    )
-            self.child_serial = child_serial
-            self.quantity = quantity
     
-    class ClothesItem(Item):
-        """
-        child_serial: number
-        """
-        def __init__(
-                self,
-                serial,
-                child_serial,
-                category,
-                title,
-                description,
-                price,
-                variance,
-                hasEvent=False,
-                isShopItem=False,
-            ):
-            super(). __init__(
-                        serial,
-                        category,
-                        title,
-                        description,
-                        price,
-                        variance,
-                        hasEvent,
-                        isShopItem
-                    )
-            self.child_serial = child_serial
-    
-    class BookItem(Item):
-        """
-        child_serial: number
-        quantity: number | defaut = 0
-        """
-        def __init__(
-                self,
-                serial,
-                child_serial,
-                category,
-                title,
-                description,
-                price,
-                variance,
-                hasEvent=False,
-                isShopItem=False,
-                quantity=0,
-            ):
-            super(). __init__(
-                        serial,
-                        category,
-                        title,
-                        description,
-                        price,
-                        variance,
-                        hasEvent,
-                        isShopItem
-                    )
-            self.child_serial = child_serial
-            self.quantity = quantity
+    ITEMS_DB = {
+        "default_clothes": Item("clothes", 0, 0, "buy", "기본옷", "기본옷입니다.", "", 0, True),
+        "cake": Item("belonging", 1, 0, "shop", "케이크", "설명", 100, "", False, True, False, True),
+        "attitude_skill": Item("book", 2, 0, "shop", "예의의 기술", "설명", 100, "", False, True, False, True),
+    }
 
 init:
 
@@ -236,27 +156,19 @@ init:
     # 플레이어 객체
     default player = Player()
 
-    # 아이템 객체 생성
-    # 예시) default book1 = Book()
-    # 옷
-    default default_clothes = ClothesItem(0, 0, "buy", "기본옷", "기본옷입니다.", 0, {})
-
-    # 소모품
-    default cake = BelongingItem(1, 0, "shop", "케이크", "설명", 100, {}, False, True, 0)
-
-    # 책
-    default attitude_skill = BookItem(2, 0, "shop", "예의의 기술", "설명", 100, {}, False, True, 0)
-
     # 아이템 객체 리스트
     # 아이템 시리얼 넘버 = index값
-    define items = [
-        default_clothes,
-        cake,
-        attitude_skill
-    ]
-    define clothes_items = [default_clothes]
-    define belonging_items = [cake]
-    define book_items = [attitude_skill]
+    define items_quantity = {
+        "belongings": {
+            "cake": 0,
+        },
+        "clothes": {
+            "default_clothes": 1,
+        },
+        "books": {
+            "attitude_skill": 0,
+        },
+    }
 
     
 

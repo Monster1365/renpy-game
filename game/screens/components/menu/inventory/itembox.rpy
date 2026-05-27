@@ -1,5 +1,5 @@
-screen itembox(serial):
-    default item = items[serial]
+screen itembox(key):
+    default item = ITEMS_DB[key]
     default img = ""
 
     button:

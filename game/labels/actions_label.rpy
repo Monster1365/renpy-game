@@ -14,6 +14,8 @@ label status_button_label:
 label schedule_button_label:
     call screen plain_screen(inner_screen="schedule_component")
     show screen menu_component
+    if _return == "go_schedule":
+        jump schedule_test
     jump main_loop
 
 label inventory_button_label:
@@ -24,4 +26,10 @@ label inventory_button_label:
 label outing_button_label:
     call screen plain_screen(inner_screen="outing_component")
     show screen menu_component
+    jump main_loop
+
+
+
+label schedule_test:
+    system "스케줄 돌아간다고 하고 다시 메인루프로 이동"
     jump main_loop

@@ -4,6 +4,7 @@
 
 screen schedule_component:
     default componentSelect = ""
+    default nowCondition = ""
 
     # button으로 감싸주는 이유는 plain_screen의 클릭과 중복돼서 현재 창이 닫히는걸 방지하려고
     # 왼쪽 요소
@@ -63,7 +64,7 @@ screen schedule_component:
             background "#706ddb"
             
             # nowSelect가 False값을 가지지 않으면 학습, 알바, 휴식, 무사수행 등을 띄움
-            if nowSelect:
+            if nowSelect and (len(scheduleList) < 3 or nowCondition == "back"):
                 vbox:
                     spacing 30
                     align (0.5, 0.5)
@@ -88,16 +89,17 @@ screen schedule_component:
                             xalign 0.5
                             yalign 0.5
                             spacing 10
+                            
+                            if len(scheduleList) < 3:
+                                button:
+                                    xsize 430
+                                    ysize 100
+                                    xpadding 10
+                                    ypadding 10
+                                    background "#cac9e5"
 
-                            button:
-                                xsize 430
-                                ysize 100
-                                xpadding 10
-                                ypadding 10
-                                background "#cac9e5"
-
-                                text "스케줄 넣기"
-                                action [ChooseSchedule("schedule_component: ChooseSchedule()", componentSelect), SetScreenVariable("componentSelect", "")]
+                                    text "스케줄 넣기"
+                                    action [ChooseSchedule("schedule_component: ChooseSchedule()", componentSelect), SetScreenVariable("componentSelect", "")]
                             button:
                                 xsize 430
                                 ysize 100
@@ -106,7 +108,35 @@ screen schedule_component:
                                 background "#cac9e5"
 
                                 text "삭제하기"
-                                action [DeleteSchedule(), SetScreenVariable("componentSelect", "")]
+                                if nowCondition == "back":
+                                    action [DeleteSchedule(), SetScreenVariable("componentSelect", ""), SetScreenVariable("nowCondition", "")]
+                                else:
+                                    action [DeleteSchedule(), SetScreenVariable("componentSelect", "")]
+            elif len(scheduleList) == 3 and nowCondition == "":
+                vbox:
+                    spacing 10
+                    align (0.0, 0.5)
+
+                    button:
+                        xsize 500
+                        ysize 150
+                        background "#aaa9ca"
+                        tooltip "돌아가시겠습니까?"
+                        text "돌아가기"
+                        action SetScreenVariable("nowCondition", "back")
+                    button:
+                        xsize 500
+                        ysize 150
+                        background "#aaa9ca"
+                        tooltip "실행하시겠습니까?"
+                        text "실행하기"
+                        action [
+                            SetScreenVariable("componentSelect", ""),
+                            SetScreenVariable("nowCondition", ""),
+                            SetScreenVariable("nowSelect", ""),
+                            Function(clearSchedule),
+                            Return("go_schedule")
+                        ]
             
             # nowSelect가 False값이면 선택창 띄움
             else:

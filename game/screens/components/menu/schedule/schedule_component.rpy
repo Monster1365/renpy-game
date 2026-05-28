@@ -3,7 +3,6 @@
 #
 
 screen schedule_component:
-    default componentSelect = ""
     default nowCondition = ""
 
     # button으로 감싸주는 이유는 plain_screen의 클릭과 중복돼서 현재 창이 닫히는걸 방지하려고
@@ -35,7 +34,7 @@ screen schedule_component:
 
                         if scheduleList:
                             for i in scheduleList:
-                                text i
+                                text [schedule_options[i]["title"]]
                         else:
                             text "schedule is empty..."
 
@@ -72,8 +71,6 @@ screen schedule_component:
                     # 분기 나눠서 컴포넌트를 화면에 띄움
                     if nowSelect == "study":
                         use study_component
-                    elif nowSelect == "work":
-                        use work_component
                     elif nowSelect == "rest":
                         use rest_component
                     elif nowSelect == "adventure":
@@ -89,17 +86,6 @@ screen schedule_component:
                             xalign 0.5
                             yalign 0.5
                             spacing 10
-                            
-                            if len(scheduleList) < 3:
-                                button:
-                                    xsize 430
-                                    ysize 100
-                                    xpadding 10
-                                    ypadding 10
-                                    background "#cac9e5"
-
-                                    text "스케줄 넣기"
-                                    action [ChooseSchedule("schedule_component: ChooseSchedule()", componentSelect), SetScreenVariable("componentSelect", "")]
                             button:
                                 xsize 430
                                 ysize 100
@@ -109,9 +95,9 @@ screen schedule_component:
 
                                 text "삭제하기"
                                 if nowCondition == "back":
-                                    action [DeleteSchedule(), SetScreenVariable("componentSelect", ""), SetScreenVariable("nowCondition", "")]
+                                    action [DeleteSchedule(), SetScreenVariable("nowCondition", "")]
                                 else:
-                                    action [DeleteSchedule(), SetScreenVariable("componentSelect", "")]
+                                    action DeleteSchedule()
             elif len(scheduleList) == 3 and nowCondition == "":
                 vbox:
                     spacing 10
@@ -131,10 +117,11 @@ screen schedule_component:
                         tooltip "실행하시겠습니까?"
                         text "실행하기"
                         action [
-                            SetScreenVariable("componentSelect", ""),
                             SetScreenVariable("nowCondition", ""),
                             SetScreenVariable("nowSelect", ""),
                             Function(clearSchedule),
+
+                            # 스케줄 실행하라고 보내는 인자
                             Return("go_schedule")
                         ]
             
@@ -152,14 +139,6 @@ screen schedule_component:
                         tooltip "학습에 대한 설명..."
                         text "학습"
                         action SetScreenVariable("nowSelect", "study")
-
-                    button:
-                        xsize 500
-                        ysize 150
-                        background "#aaa9ca"
-                        tooltip "알바에 대한 설명..."
-                        text "알바"
-                        action SetScreenVariable("nowSelect", "work")
 
                     button:
                         xsize 500

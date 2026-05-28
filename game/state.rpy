@@ -1,16 +1,7 @@
 ## 기본 변수 설정
-## 딕셔너리로 관리, get/set으로 값 조회 및 수정
 # 
-# todo : item class 구현하기
 #
-
-## 객체로 상태 관리
 init python:
-
-    ## 선택 상태 - 딕셔너리로 저장
-    ## staus, schedule 등의 선택을 넣는 딕셔너리 구조
-    #
-    #
     menu_btn_options = {
         "status": "status_button_label",
         "schedule": "schedule_button_label",
@@ -18,21 +9,59 @@ init python:
         "outing": "outing_button_label",
     }
 
-    schedule_options = ["studyroom",
-                        "playwithchild",
-                        "learnlanguage",
-                        "learnattitude",
-                        "housework",
-                        "lesson",
-                        "hospitalwork",
-                        "clotheswork",
-                        "farmwork",
-                        "mindset",
-                        "outing",
-                        "adventure"]
+    schedule_options = {
+        "study1": {
+            "title": "study1",
+            "status": ["stress"]
+        },
+        "study2": {
+            "title": "study2",
+            "status": ["stress"]
+        },
+        "study3": {
+            "title": "study3",
+            "status": ["stress"]
+        },
+        "study4": {
+            "title": "study4",
+            "status": ["stress"]
+        },
+        "rest1": {
+            "title": "rest1",
+            "status": ["stress"]
+        },
+        "rest2": {
+            "title": "rest2",
+            "status": ["stress"]
+        },
+        "rest3": {
+            "title": "rest3",
+            "status": ["stress"]
+        },
+        "rest4": {
+            "title": "rest4",
+            "status": ["stress"]
+        },
+        "adventure1": {
+            "title": "adventure1",
+            "status": ["stress"]
+        },
+        "adventure2": {
+            "title": "adventure2",
+            "status": ["stress"]
+        },
+        "adventure3": {
+            "title": "adventure3",
+            "status": ["stress"]
+        },
+        "adventure4": {
+            "title": "adventure4",
+            "status": ["stress"]
+        },
+    }
 
     ## 객체 정의
-    # 플레이어 데이터 정의
+    # 플레이어 정적 데이터
     class Profile:
         def __init__(self):
             self.name = "character"
@@ -68,7 +97,7 @@ init python:
             self.status = Status()
             self.times = Times()
 
-    # 아이템 데이터 정의
+    # 아이템 정적 데이터
     class Item:
         """
         type: string -> clothes | belonging | book,
@@ -113,6 +142,7 @@ init python:
             self.hasEvent = hasEvent
             self.isShopItem = isShopItem
     
+    # 게임 아이템 초기화
     ITEMS_DB = {
         "default_clothes": Item("clothes", 0, 0, "buy", "기본옷", "기본옷입니다.", "", 0, True),
         "cake": Item("belonging", 1, 0, "shop", "케이크", "설명", 100, "", False, True, False, True),
@@ -122,6 +152,8 @@ init python:
 init:
 
     ## 게임 환경 설정
+    # ========================================
+    #
     # 게임에서 사용할 시스템 대화창을 정의합니다.
     define system = Character('system', color="#c8ffc8")
 
@@ -141,18 +173,29 @@ init:
     define MAX_YEAR = 8
     define MAX_MONTH = 12
     define MAX_DAY = 30
+    # ========================================
+
+
 
     # 메뉴 화면이 보이는 상태인지 아닌지 상태를 저장하는 변수
     default is_visible_menu = True
 
+
+
+    ## 스케줄
+    # ========================================
     # 스케줄 선택 변수
     default nowSelect = ""
 
     # 선택된 스케줄 저장용 변수
     default scheduleList = []
+    # ========================================
+
 
 
     ## 게임 진행중 동적으로 변하는 변수 상태 관리 객체 생성
+    # ========================================
+    #
     # 플레이어 객체
     default player = Player()
 
@@ -169,6 +212,7 @@ init:
             "attitude_skill": 0,
         },
     }
+    # ========================================
 
     
 

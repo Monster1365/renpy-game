@@ -2,12 +2,9 @@ screen rest_component():
     grid 2 2:
         spacing 10
 
-        button:
-            style "schedule_cmp_button"
-            text "마음수양"
-            action SetScreenVariable("componentSelect", "mindset")
-
-        button:
-            style "schedule_cmp_button"
-            text "외출"
-            action SetScreenVariable("componentSelect", "outing")
+        for i in ["rest1", "rest2", "rest3", "rest4"]:
+            button:
+                style "schedule_cmp_button"
+                text [schedule_options[i]["title"]]
+                if len(scheduleList) < 3:
+                    action ChooseSchedule(i)

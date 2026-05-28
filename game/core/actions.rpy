@@ -37,8 +37,7 @@ init python:
     # 스케줄 넣기를 누르면 발생, option에서 확인하고 아니면 리턴
     class ChooseSchedule(Action):
         # 객체가 생성될때 초기화되는 매직 메서드
-        def __init__(self, context, option):
-            self.context = context
+        def __init__(self, option):
             self.option = option
 
         # 객체를 함수처럼 호출할수 있게 해주는 매직 메서드
@@ -57,6 +56,7 @@ init python:
         def __call__(self):
             if scheduleList:
                 scheduleList.pop()
+                renpy.restart_interaction()
             else:
                 return
 

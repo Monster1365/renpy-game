@@ -60,6 +60,37 @@ init python:
         },
     }
 
+    outing_options = {
+        "outing1": {
+            "title": "restaurant",
+            "choice": {
+                "choice1": "dish1",
+                "choice2": "dish2",
+            },
+        },
+        "outing2": {
+            "title": "variety store",
+            "choice": {
+                "choice1": "dish1",
+                "choice2": "dish2",
+            },
+        },
+        "outing3": {
+            "title": "cathedral",
+            "choice": {
+                "choice1": "dish1",
+                "choice2": "dish2",
+            },
+        },
+        "outing4": {
+            "title": "hospital",
+            "choice": {
+                "choice1": "dish1",
+                "choice2": "dish2",
+            },
+        },
+    }
+
     ## 객체 정의
     # 플레이어 정적 데이터
     class Profile:
@@ -153,7 +184,7 @@ init:
 
     ## 게임 환경 설정
     # ========================================
-    #
+    
     # 게임에서 사용할 시스템 대화창을 정의합니다.
     define system = Character('system', color="#c8ffc8")
 
@@ -173,29 +204,46 @@ init:
     define MAX_YEAR = 8
     define MAX_MONTH = 12
     define MAX_DAY = 30
+
     # ========================================
 
 
 
+    ## 메뉴
+    # ========================================
+
     # 메뉴 화면이 보이는 상태인지 아닌지 상태를 저장하는 변수
     default is_visible_menu = True
+
+    # ========================================
 
 
 
     ## 스케줄
     # ========================================
+
     # 스케줄 선택 변수
-    default nowSelect = ""
+    default scheduleSelect = ""
 
     # 선택된 스케줄 저장용 변수
     default scheduleList = []
+
+    # ========================================
+
+
+
+    ## 외출
+    # ========================================
+
+    default outingSelect = ""
+
     # ========================================
 
 
 
     ## 게임 진행중 동적으로 변하는 변수 상태 관리 객체 생성
     # ========================================
-    #
+    
     # 플레이어 객체
     default player = Player()
 
@@ -212,6 +260,7 @@ init:
             "attitude_skill": 0,
         },
     }
+
     # ========================================
 
     

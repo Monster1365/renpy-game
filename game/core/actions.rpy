@@ -52,6 +52,7 @@ init python:
         def get_sensitive(self):
             return self.option in schedule_options
     
+    # 스케줄 제일 마지막에 선택한거 하나만 삭제하기
     class DeleteSchedule(Action):
         def __call__(self):
             if scheduleList:

@@ -6,10 +6,12 @@
 
 screen plain_screen(inner_screen):
     button:
-        if inner_screen == "schedule_component" and nowSelect:
-            action SetScreenVariable("nowSelect", "")
+        if inner_screen == "schedule_component" and scheduleSelect:
+            action SetScreenVariable("scheduleSelect", "")
         elif inner_screen == "schedule_component":
             action [Function(clearSchedule), Hide(inner_screen), Hide("plain_screen"), Return()]
+        elif inner_screen == "outing_component" and outingSelect:
+            action SetVariable("outingSelect", "")
         else:
             action [Hide(inner_screen), Hide("plain_screen"), Return()]
 

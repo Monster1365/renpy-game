@@ -62,18 +62,18 @@ screen schedule_component:
             padding (20, 20)
             background "#706ddb"
             
-            # nowSelect가 False값을 가지지 않으면 학습, 알바, 휴식, 무사수행 등을 띄움
-            if nowSelect and (len(scheduleList) < 3 or nowCondition == "back"):
+            # scheduleSelect가 False값을 가지지 않으면 학습, 알바, 휴식, 무사수행 등을 띄움
+            if scheduleSelect and (len(scheduleList) < 3 or nowCondition == "back"):
                 vbox:
                     spacing 30
                     align (0.5, 0.5)
 
                     # 분기 나눠서 컴포넌트를 화면에 띄움
-                    if nowSelect == "study":
+                    if scheduleSelect == "study":
                         use study_component
-                    elif nowSelect == "rest":
+                    elif scheduleSelect == "rest":
                         use rest_component
-                    elif nowSelect == "adventure":
+                    elif scheduleSelect == "adventure":
                         use adventure_component
 
                     frame:
@@ -118,14 +118,14 @@ screen schedule_component:
                         text "실행하기"
                         action [
                             SetScreenVariable("nowCondition", ""),
-                            SetScreenVariable("nowSelect", ""),
+                            SetScreenVariable("scheduleSelect", ""),
                             Function(clearSchedule),
 
                             # 스케줄 실행하라고 보내는 인자
                             Return("go_schedule")
                         ]
             
-            # nowSelect가 False값이면 선택창 띄움
+            # scheduleSelect가 False값이면 선택창 띄움
             else:
                 vbox:
                     spacing 10
@@ -138,7 +138,7 @@ screen schedule_component:
                         background "#aaa9ca"
                         tooltip "학습에 대한 설명..."
                         text "학습"
-                        action SetScreenVariable("nowSelect", "study")
+                        action SetScreenVariable("scheduleSelect", "study")
 
                     button:
                         xsize 500
@@ -146,7 +146,7 @@ screen schedule_component:
                         background "#aaa9ca"
                         tooltip "휴식에 대한 설명..."
                         text "휴식"
-                        action SetScreenVariable("nowSelect", "rest")
+                        action SetScreenVariable("scheduleSelect", "rest")
 
                     button:
                         xsize 500
@@ -154,4 +154,4 @@ screen schedule_component:
                         background "#aaa9ca"
                         tooltip "무사수행에 대한 설명..."
                         text "무사수행"
-                        action SetScreenVariable("nowSelect", "adventure")
+                        action SetScreenVariable("scheduleSelect", "adventure")

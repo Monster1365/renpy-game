@@ -31,5 +31,5 @@ label outing_button_label:
 
 
 label schedule_test:
-    system "스케줄 돌아간다고 하고 다시 메인루프로 이동"
+    call screen plain_screen(inner_screen="print_schedule_screen")
     jump main_loop

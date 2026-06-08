@@ -29,7 +29,10 @@ init python:
             return self.option in menu_btn_options
     
     
-    ## 스케줄 관련 액션
+################################################################################
+## 스케줄 관련 클래스와 함수
+################################################################################
+
     # 스케줄화면 나가거나 스케줄 돌릴때 발생, 스케줄 리스트 싹 비움
     def clearSchedule():
         renpy.store.scheduleList = []
@@ -60,6 +63,132 @@ init python:
                 renpy.restart_interaction()
             else:
                 return
+
+    # todo
+    # 1. 날짜 계산
+    # 2. 성공 실패 계산
+    # 3. 스탯 변화량 계산 및 스탯 업데이트
+    # 4. 이벤트계산
+    #
+    # 스케줄 큐 사용해서 1~4번 돌리기
+    # 4번에서 검사후 이벤트 있으면 이벤트 큐에 push
+    # 이벤트큐에 있는 요소는 스케줄이 한번 pop된 후에 이벤트큐 pop
+    # 이벤트 큐 다 pop되면 그 다음에 스케줄 다음거 pop하기
+    # 이렇게 만들어진 결과를 result에 저장
+    # 이후 유저가 보는 화면에선 이미 만들어진 result를 하나하나 보여줌
+    def goSchedule(schedules):
+        manager = ScheduleManager(schedules)
+        n1 = next(manager)
+        n2 = next(manager)
+        n3 = next(manager)
+        renpy.store.record_schedule_result.append((n1, n2, n3))
+        renpy.store.now_schedule_result = (n1, n2, n3)
+        renpy.restart_interaction()
+        return
+
+    # todo
+    class ScheduleManager:
+        def __init__(self, schedules):
+            self.schedules = schedules
+            self.__now_schedule = ""
+            self.__p = ""
+            self.result = {
+                "time": "",
+                "pass_time": "",
+                "is_sucess": "",
+                "status": []
+            }
+
+        def __iter__(self):
+            return self
+
+        def __next__(self):
+            if self.schedules:
+
+                # 초기화
+                self.result = {
+                    "time": "",
+                    "pass_time": "",
+                    "is_sucess": "",
+                    "status": []
+                }
+                self.p = ""
+
+                self.__now_schedule = self.popleft()
+                self.run_phase("before") # 선수이벤트 검사, 확률 검사, 
+                self.run_phase("after") # 스케줄 실행, 능력치, 친밀도 검사
+                self.run_phase("end") # 이벤트 체크, 시간변화 체크
+                return (self.__now_schedule, self.result) # 실행한 스케줄과 그 결과 반환
+            else:
+                raise StopIteration
+        
+        def run_phase(self, point):
+            if point == "before":
+                self.p_rate(self.__now_schedule)
+                #checkEvent()
+            elif point == "after":
+                self.updateStatus(self.__now_schedule, self.__p)
+            elif point == "end":
+                self.passTime()
+                #checkEvent()
+
+        def popleft(self):
+            if self.schedules:
+                return self.schedules.pop(0)
+            else:
+                return False
+        
+        def p_rate(self, schedule):
+            if renpy.store.ENV == "development":
+                self.result["is_success"] = "success"
+                self.__p = "success"
+            else:
+                self.result["is_success"] = "success"
+                self.__p = "success"
+                pass
+        
+        def passTime(self):
+            player = renpy.store.player
+            year = player.times.current_year
+            month = player.times.current_month
+            day = player.times.current_day
+            self.result["time"] = str(year)+"."+str(month)+"."+str(day)
+            if day == 31:
+                day = 11
+                month += 1
+                if month == 12:
+                    month = 1
+                    year +=1
+            else:
+                day += 10
+            self.result["pass_time"] = str(year)+"."+str(month)+"."+str(day)
+            player.times.current_year = year
+            player.times.current_month = month
+            player.times.current_day = day
+
+        def updateStatus(self, schedule, p):
+            player_status = renpy.store.player.status
+            if p == "success":
+                status_list = schedule_options[schedule]["status"]["success"]
+                for status, var in status_list:
+                    getstatus = getattr(player_status, status) + var
+                    self.result["status"].append((status, getstatus))
+                    setattr(player_status, status, getstatus)
+            elif p == "fail":
+                status_list = schedule_options[schedule]["status"]["fail"]
+                for status, var in status_list:
+                    self.result["status"].append([status, var])
+                    getstatus = getattr(player_status, status) + var
+                    self.result["status"].append((status, getstatus))
+                    setattr(player_status, status, getstatus)
+
+
+
+
+
+
+
+
 
 
     # 스테이터스 변화 액션

@@ -120,6 +120,7 @@ screen schedule_component:
                             SetScreenVariable("nowCondition", ""),
                             SetScreenVariable("scheduleSelect", ""),
                             Function(clearSchedule),
+                            Function(goSchedule, scheduleList),
 
                             # 스케줄 실행하라고 보내는 인자
                             Return("go_schedule")

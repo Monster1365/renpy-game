@@ -12,51 +12,87 @@ init python:
     schedule_options = {
         "study1": {
             "title": "study1",
-            "status": ["stress"]
+            "status": {
+                "success": [("hp", 10), ("strength", 10)],
+                "fail": [("stress", 10)]
+            }
         },
         "study2": {
             "title": "study2",
-            "status": ["stress"]
+            "status": {
+                "success": [("hp", 10), ("strength", 10)],
+                "fail": [("stress", 10)]
+            }
         },
         "study3": {
             "title": "study3",
-            "status": ["stress"]
+            "status": {
+                "success": [("hp", 10), ("strength", 10)],
+                "fail": [("stress", 10)]
+            }
         },
         "study4": {
             "title": "study4",
-            "status": ["stress"]
+            "status": {
+                "success": [("hp", 10), ("strength", 10)],
+                "fail": [("stress", 10)]
+            }
         },
         "rest1": {
             "title": "rest1",
-            "status": ["stress"]
+            "status": {
+                "success": [("hp", 10), ("strength", 10)],
+                "fail": [("stress", 10)]
+            }
         },
         "rest2": {
             "title": "rest2",
-            "status": ["stress"]
+            "status": {
+                "success": [("hp", 10), ("strength", 10)],
+                "fail": [("stress", 10)]
+            }
         },
         "rest3": {
             "title": "rest3",
-            "status": ["stress"]
+            "status": {
+                "success": [("hp", 10), ("strength", 10)],
+                "fail": [("stress", 10)]
+            }
         },
         "rest4": {
             "title": "rest4",
-            "status": ["stress"]
+            "status": {
+                "success": [("hp", 10), ("strength", 10)],
+                "fail": [("stress", 10)]
+            }
         },
         "adventure1": {
             "title": "adventure1",
-            "status": ["stress"]
+            "status": {
+                "success": [("hp", 10), ("strength", 10)],
+                "fail": [("stress", 10)]
+            }
         },
         "adventure2": {
             "title": "adventure2",
-            "status": ["stress"]
+            "status": {
+                "success": [("hp", 10), ("strength", 10)],
+                "fail": [("stress", 10)]
+            }
         },
         "adventure3": {
             "title": "adventure3",
-            "status": ["stress"]
+            "status": {
+                "success": [("hp", 10), ("strength", 10)],
+                "fail": [("stress", 10)]
+            }
         },
         "adventure4": {
             "title": "adventure4",
-            "status": ["stress"]
+            "status": {
+                "success": [("hp", 10), ("strength", 10)],
+                "fail": [("stress", 10)]
+            }
         },
     }
 
@@ -181,6 +217,8 @@ init python:
     }
 
 init:
+    ## 개발환경체크
+    define ENV = "development"
 
     ## 게임 환경 설정
     # ========================================
@@ -227,6 +265,10 @@ init:
 
     # 선택된 스케줄 저장용 변수
     default scheduleList = []
+
+    default record_schedule_result = []
+
+    default now_schedule_result = ()
 
     # ========================================
 

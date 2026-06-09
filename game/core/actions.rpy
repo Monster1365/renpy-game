@@ -86,7 +86,6 @@ init python:
         renpy.restart_interaction()
         return
 
-    # todo
     class ScheduleManager:
         def __init__(self, schedules):
             self.schedules = schedules
@@ -95,7 +94,7 @@ init python:
             self.result = {
                 "time": "",
                 "pass_time": "",
-                "is_sucess": "",
+                "p_rate": "",
                 "status": []
             }
 
@@ -109,7 +108,7 @@ init python:
                 self.result = {
                     "time": "",
                     "pass_time": "",
-                    "is_sucess": "",
+                    "p_rate": "",
                     "status": []
                 }
                 self.p = ""
@@ -138,14 +137,17 @@ init python:
             else:
                 return False
         
+        # 성공, 보통, 실패 확률로 다시 수정
         def p_rate(self, schedule):
             if renpy.store.ENV == "development":
-                self.result["is_success"] = "success"
-                self.__p = "success"
+                self.result["p_rate"] = "best"
+                self.__p = "best"
+                if schedule in ["rest1", "rest2"]:
+                    self.result["p_rate"] = "rest"
+                    self.__p = "rest"
             else:
-                self.result["is_success"] = "success"
-                self.__p = "success"
-                pass
+                self.result["p_rate"] = "best"
+                self.__p = "best"
         
         def passTime(self):
             player = renpy.store.player
@@ -153,8 +155,8 @@ init python:
             month = player.times.current_month
             day = player.times.current_day
             self.result["time"] = str(year)+"."+str(month)+"."+str(day)
-            if day == 31:
-                day = 11
+            if day == 21:
+                day = 1
                 month += 1
                 if month == 12:
                     month = 1
@@ -166,22 +168,39 @@ init python:
             player.times.current_month = month
             player.times.current_day = day
 
-        def updateStatus(self, schedule, p):
-            player_status = renpy.store.player.status
-            if p == "success":
-                status_list = schedule_options[schedule]["status"]["success"]
-                for status, var in status_list:
-                    getstatus = getattr(player_status, status) + var
-                    self.result["status"].append((status, getstatus))
-                    setattr(player_status, status, getstatus)
-            elif p == "fail":
-                status_list = schedule_options[schedule]["status"]["fail"]
-                for status, var in status_list:
-                    self.result["status"].append([status, var])
-                    getstatus = getattr(player_status, status) + var
-                    self.result["status"].append((status, getstatus))
-                    setattr(player_status, status, getstatus)
+        # 걍 p로 키값 접근하면 될듯
+        def updateStatus(self, schedule, p): # schedule은 schdule옵션, p는 success | nomal | fail
+            player_SL = renpy.store.player.SL.sl_dict
+            status_increase = schedule_options[schedule]["status"]["increase"]
+            status_decrease = schedule_options[schedule]["status"]["decrease"]
+            if status_increase:
+                for status in status_increase:
+                    sl = player_SL[schedule]
+                    self.changeStatus(status, schedule, sl, p, "inc")
+            if p != "best" and status_decrease:
+                for status in status_decrease:
+                    sl = player_SL[schedule]
+                    self.changeStatus(status, schedule, sl, p, "dec")
 
+        def changeStatus(self, status, schedule, level, p, option):
+            player_status = renpy.store.player.status # player.status객체 가져옴
+            getstatus = getattr(player_status, status)
+            if option == "inc":
+                if p == "best":
+                    var = getstatus + (2*level)
+                else:
+                    var = getstatus + (1*level)
+            elif getstatus > 0:
+                if schedule == "rest1":
+                    var = getstatus - (10*level)
+                elif schedule == "rest2":
+                    var = getstatus - (10*level)
+                else:
+                    var = getstatus - 1
+            else:
+                var = 0
+            self.result["status"].append((status, var))
+            setattr(player_status, status, var)
 
 
 

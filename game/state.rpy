@@ -11,87 +11,73 @@ init python:
 
     schedule_options = {
         "study1": {
-            "title": "study1",
+            "title": "공부방",
             "status": {
-                "success": [("hp", 10), ("strength", 10)],
-                "fail": [("stress", 10)]
-            }
+                "increase": ["intellect", "stress"],
+                "decrease": ["hp"]
+            },
         },
         "study2": {
-            "title": "study2",
+            "title": "애들과 뛰어놀기",
             "status": {
-                "success": [("hp", 10), ("strength", 10)],
-                "fail": [("stress", 10)]
-            }
+                "increase": ["hp", "strength", "stress"],
+                "decrease": ["stress"]
+            },
         },
         "study3": {
-            "title": "study3",
+            "title": "언어교육",
             "status": {
-                "success": [("hp", 10), ("strength", 10)],
-                "fail": [("stress", 10)]
+                "increase": ["sociality", "attitude", "stress"],
+                "decrease": []
             }
         },
         "study4": {
-            "title": "study4",
+            "title": "예절수업",
             "status": {
-                "success": [("hp", 10), ("strength", 10)],
-                "fail": [("stress", 10)]
+                "increase": ["attitude", "morality", "stress"],
+                "decrease": []
             }
         },
         "rest1": {
-            "title": "rest1",
+            "title": "마음수양",
             "status": {
-                "success": [("hp", 10), ("strength", 10)],
-                "fail": [("stress", 10)]
+                "increase": [],
+                "decrease": ["stress"]
             }
         },
         "rest2": {
-            "title": "rest2",
+            "title": "외출",
             "status": {
-                "success": [("hp", 10), ("strength", 10)],
-                "fail": [("stress", 10)]
-            }
-        },
-        "rest3": {
-            "title": "rest3",
-            "status": {
-                "success": [("hp", 10), ("strength", 10)],
-                "fail": [("stress", 10)]
-            }
-        },
-        "rest4": {
-            "title": "rest4",
-            "status": {
-                "success": [("hp", 10), ("strength", 10)],
-                "fail": [("stress", 10)]
+                "increase": ["hp", "sociality"],
+                "decrease": ["morality", "stress"]
             }
         },
         "adventure1": {
             "title": "adventure1",
             "status": {
-                "success": [("hp", 10), ("strength", 10)],
-                "fail": [("stress", 10)]
+                "increase": ["hp", "strength"],
+                "decrease": ["stress"]
             }
         },
         "adventure2": {
             "title": "adventure2",
             "status": {
-                "success": [("hp", 10), ("strength", 10)],
-                "fail": [("stress", 10)]
+                "increase": ["hp", "strength"],
+                "decrease": ["stress"]
             }
         },
         "adventure3": {
             "title": "adventure3",
             "status": {
-                "success": [("hp", 10), ("strength", 10)],
-                "fail": [("stress", 10)]
+                "increase": ["hp", "strength"],
+                "decrease": ["stress"]
             }
         },
         "adventure4": {
             "title": "adventure4",
             "status": {
-                "success": [("hp", 10), ("strength", 10)],
-                "fail": [("stress", 10)]
+                "increase": ["hp", "strength"],
+                "decrease": ["stress"]
             }
         },
     }
@@ -152,6 +138,9 @@ init python:
             self.current_year = 2026
             self.current_month = 1
             self.current_day = 1
+    class SL: # skill level
+        def __init__(self, options):
+            self.sl_dict = dict(zip(list(options.keys()), [1]*len(list(options.keys()))))
 
     class Player:
         """
@@ -163,6 +152,7 @@ init python:
             self.profile = Profile()
             self.status = Status()
             self.times = Times()
+            self.SL = SL(schedule_options)
 
     # 아이템 정적 데이터
     class Item:

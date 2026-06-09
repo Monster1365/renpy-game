@@ -21,7 +21,7 @@ screen print_schedule_screen():
                                 vbox:
                                     text [result[1]["time"]]
                                     text [result[1]["pass_time"]]
-                                    text [result[1]["is_sucess"]]
+                                    text [result[1]["p_rate"]]
                                 vbox:
                                     if result[1]["status"]:
                                         hbox:

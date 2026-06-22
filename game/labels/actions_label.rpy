@@ -6,26 +6,30 @@
 
 label status_button_label:
     call screen plain_screen(inner_screen="status_component")
-    show screen menu_component
+    $ is_visible_setting_btn=True
+    $ renpy.restart_interaction()
     jump main_loop
 
 
 ## 아래는 구현해야할 것들
 label schedule_button_label:
     call screen plain_screen(inner_screen="schedule_component")
-    show screen menu_component
+    $ is_visible_setting_btn=True
+    $ renpy.restart_interaction()
     if _return == "go_schedule":
         jump schedule_test
     jump main_loop
 
 label inventory_button_label:
     call screen plain_screen(inner_screen="inventory_component")
-    show screen menu_component
+    $ is_visible_setting_btn=True
+    $ renpy.restart_interaction()
     jump main_loop
 
 label outing_button_label:
     call screen plain_screen(inner_screen="outing_component")
-    show screen menu_component
+    $ is_visible_setting_btn=True
+    $ renpy.restart_interaction()
     jump main_loop
 
 

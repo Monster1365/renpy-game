@@ -9,4 +9,5 @@ screen bottom_layout():
         xfill True
         ysize BOTTOM_LAYOUT_HEIGHT
 
-        text "bottom"
+        if is_visible_setting_btn:
+            use setting_btn_component

@@ -222,8 +222,8 @@ init:
 
     # 화면 비율 설정
     define TOP_LAYOUT_HEIGHT = 100
-    define MIDDLE_LAYOUT_HEIGHT = 880
-    define BOTTOM_LAYOUT_HEIGHT = 100
+    define MIDDLE_LAYOUT_HEIGHT = 850
+    define BOTTOM_LAYOUT_HEIGHT = 130
 
     # 환경변수 설정
     define TIME_DISPLAY = "days" # or weeks
@@ -256,9 +256,12 @@ init:
     # 선택된 스케줄 저장용 변수
     default scheduleList = []
 
+    # 스케줄 결과 전체 저장용
     default record_schedule_result = []
 
     default now_schedule_result = ()
+
+    # todo count schedule
 
     # ========================================
 
@@ -295,7 +298,14 @@ init:
 
     # ========================================
 
-    
+
+
+    ## 설정
+    # ========================================
+
+    default is_visible_setting_btn = True
+
+    # ========================================
 
 
 

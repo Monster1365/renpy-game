@@ -1,6 +1,6 @@
 screen setting_btn_component:
     button:
-        action NullAction()
+        action Jump("setting_label")
         
         align (0.005, 0.5)
         xsize 100

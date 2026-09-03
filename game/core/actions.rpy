@@ -3,6 +3,12 @@
 #
 
 init python:
+    import random
+
+
+
+
+
     ## 메뉴 선택 액션 객체 생성
     ## status, schedule... 등의 버튼을 눌렀을때 선택된 버튼이 Action에 담김
     ## Action을 opion으로 넘겨줌
@@ -83,18 +89,19 @@ init python:
         n3 = next(manager)
         renpy.store.record_schedule_result.append((n1, n2, n3))
         renpy.store.now_schedule_result = (n1, n2, n3)
-        renpy.restart_interaction()
+        # renpy.restart_interaction()
+        renpy.show_screen("plain_screen", "print_schedule_screen")
         return
 
     class ScheduleManager:
         def __init__(self, schedules):
             self.schedules = schedules
             self.__now_schedule = ""
-            self.__p = ""
+            self.__p = []
             self.result = {
                 "time": "",
                 "pass_time": "",
-                "p_rate": "",
+                "p_rate": [],
                 "status": []
             }
 
@@ -108,7 +115,7 @@ init python:
                 self.result = {
                     "time": "",
                     "pass_time": "",
-                    "p_rate": "",
+                    "p_rate": [],
                     "status": []
                 }
                 self.p = ""
@@ -123,10 +130,10 @@ init python:
         
         def run_phase(self, point):
             if point == "before":
-                self.p_rate(self.__now_schedule)
+                pass
                 #checkEvent()
             elif point == "after":
-                self.updateStatus(self.__now_schedule, self.__p)
+                self.updateStatus(self.__now_schedule)
             elif point == "end":
                 self.passTime()
                 #checkEvent()
@@ -137,78 +144,179 @@ init python:
             else:
                 return False
         
-        # 성공, 보통, 실패 확률로 다시 수정
-        def p_rate(self, schedule):
-            if renpy.store.ENV == "development":
-                self.result["p_rate"] = "best"
-                self.__p = "best"
-                if schedule in ["rest1", "rest2"]:
-                    self.result["p_rate"] = "rest"
-                    self.__p = "rest"
+        # 체력, 근력, 스트레스 지수를 계산해서 성공확률 구하는 함수
+        def calc_rate(self, schedule):
+            hp, morality, stress = renpy.store.player.getRatingProp()
+            stand_key = schedule_options[schedule]["stand"]["key"]
+            stand_val = schedule_options[schedule]["stand"]["value"]
+            player_status = renpy.store.player.status # player.status객체 가져옴
+            now_stand_val = getattr(player_status, stand_key)
+
+            # 1. hp*2 < stress 이면 무조건 fail
+            # 2. 특정스탯 값이 기준을 못넘으면 normal 또는 good
+            # 3. 내 스탯이 특정 기준을 만족할 때 분기
+            # 3-1. hp > stress 이면 best
+            # 3-2. 아니면 결과는 normal, good, best를 모두 가질수 있음
+
+            #1
+            if hp*2 < stress:
+                result = "fail"
+
+            #2
+            elif now_stand_val < stand_val: # 스탯 낮을때
+                #확률 normal, good
+                result = random.choice(["normal", "good"])
+
+            #3
+            elif stand_val <= now_stand_val:
+                #3-1
+                if hp > stress:
+                    result = "best"
+
+                #3-2
+                elif hp <= stress:
+                    # hp 높을수록 rate낮아짐
+                    rate = (stress - hp) / hp
+                    result = "good" if random.random() < rate else "best"
+            
+            return result
+
+        def repeat_rateing(self, best, good, normal, mini, maxi, condition):
+            if condition:
+                now = renpy.random.randint(mini, maxi)
+                b = abs(best - now)
+                g = abs(good - now)
+                n = abs(normal - now)
             else:
-                self.result["p_rate"] = "best"
-                self.__p = "best"
+                now = renpy.random.randint(maxi, mini) # 랜던 함수 리스트 범위 넘어가는거 수정함
+                b = abs(normal - now)
+                g = abs(good - now)
+                n = abs(best - now)
+            return (b, g, n, now)
+
+        def get_rated_var(self, want, minimum, maximum):
+            mini = minimum
+            maxi = maximum
+            best = maxi
+            good = ((maxi + mini)/2)
+            normal = mini
+            condition = True if minimum < maximum else False
+
+            b, g, n, now = self.repeat_rateing(best, good, normal, mini, maxi, condition)
+
+            count = 0
+            max_count = 100
+
+            if want == "normal":
+                while True:
+                    count += 1
+                    if max_count <= count:
+                        return 0
+
+                    if min(b, g, n) == n:
+                        return now
+                    else:
+                        b, g, n, now = self.repeat_rateing(best, good, normal, mini, maxi, condition)
+
+            elif want == "good":
+                while True:
+                    count += 1
+                    if max_count <= count:
+                        return 0
+
+                    if min(b, g, n) == g:
+                        return now
+                    else:
+                        b, g, n, now = self.repeat_rateing(best, good, normal, mini, maxi, condition)
+            elif want == "best":
+                while True:
+                    count += 1
+                    if max_count <= count:
+                        return 0
+
+                    if min(b, g, n) == b:
+                        return now
+                    else:
+                        b, g, n, now = self.repeat_rateing(best, good, normal, mini, maxi, condition)
+            else:
+                return 0
+
+
+        # 증감시킬 스탯의 수치를 정하는 함수
+        def p_rate(self, schedule, minimum, maximum): # -> list(int)
+
+            # 만약 최대 최소 같으면 그냥 반환
+            if minimum == maximum:
+                return [minimum]*7
+            else:
+                result = [0]*7
+                
+                for i in range(7):
+                    rate = self.calc_rate(schedule) # normal, good, best
+                    self.result["p_rate"].append((schedule, rate))
+                    self.__p.append(rate)
+                    var = self.get_rated_var(rate, minimum, maximum)
+                    result[i] = var
+                return result
         
+        # 수정할 것 한달 21일, 스케줄단위 일주일
         def passTime(self):
             player = renpy.store.player
             year = player.times.current_year
             month = player.times.current_month
             day = player.times.current_day
             self.result["time"] = str(year)+"."+str(month)+"."+str(day)
-            if day == 21:
+            if day == 15:
                 day = 1
                 month += 1
                 if month == 12:
                     month = 1
                     year +=1
             else:
-                day += 10
+                day += 7
             self.result["pass_time"] = str(year)+"."+str(month)+"."+str(day)
             player.times.current_year = year
             player.times.current_month = month
             player.times.current_day = day
 
-        # 걍 p로 키값 접근하면 될듯
-        def updateStatus(self, schedule, p): # schedule은 schdule옵션, p는 success | nomal | fail
-            player_SL = renpy.store.player.SL.sl_dict
-            status_increase = schedule_options[schedule]["status"]["increase"]
-            status_decrease = schedule_options[schedule]["status"]["decrease"]
-            if status_increase:
-                for status in status_increase:
-                    sl = player_SL[schedule]
-                    self.changeStatus(status, schedule, sl, p, "inc")
-            if p != "best" and status_decrease:
-                for status in status_decrease:
-                    sl = player_SL[schedule]
-                    self.changeStatus(status, schedule, sl, p, "dec")
+        ## 스케줄의 스탯의 확률을 구하고 변경을 돌리는 함수
+        # status_dict : dict
+        # minimum : int
+        # maximum : int
+        # var : list 2D
+        def updateStatus(self, schedule): # schedule은 schdule옵션
+            status_dict = schedule_options[schedule]["status"] # 증감시킬 스테이터스 가져오기
+            bound_pass_count = 0
+            if status_dict: # 스테이터스 하나하나 돌면서 증감 실행
+                for key, value in status_dict.items():
+                    if key == "bond":
+                        var = self.p_rate(schedule, minimum, maximum)
+                        self.changeStatus(key, schedule, random.choice(var)) # 유대 스탯 7개중 랜덤으로 하나 선택
+                    else:
+                        if key == "stress":
+                            minimum = value[1]
+                            maximum = value[0]
+                        else:
+                            minimum = value[0] # 증감 최값
+                            maximum = value[1] # 증감 최댓값
+                        var = self.p_rate(schedule, minimum, maximum) # 확률함수 돌려서 증감된 스탯값 리스트로 받음 (7번 실행)
+                        self.changeStatus(key, schedule, var) # 스탯변경 함수 돌리기
 
-        def changeStatus(self, status, schedule, level, p, option):
+        ## 실제로 스탯 증감값이 변경이 적용되는 함수
+        # 특정 스탯의 7일치 증감값 반영후 결과를  result에 메모
+        def changeStatus(self, status, schedule, var):
             player_status = renpy.store.player.status # player.status객체 가져옴
-            getstatus = getattr(player_status, status)
-            if option == "inc":
-                if p == "best":
-                    var = getstatus + (2*level)
-                else:
-                    var = getstatus + (1*level)
-            elif getstatus > 0:
-                if schedule == "rest1":
-                    var = getstatus - (10*level)
-                elif schedule == "rest2":
-                    var = getstatus - (10*level)
-                else:
-                    var = getstatus - 1
+            if isinstance(var, int):
+                getstatus = getattr(player_status, status)
+                result = var + getstatus
+                setattr(player_status, status, result)
             else:
-                var = 0
-            self.result["status"].append((status, var))
-            setattr(player_status, status, var)
-
-
-
-
-
-
-
-
+                for i in var:
+                    getstatus = getattr(player_status, status)
+                    result = i + getstatus
+                    setattr(player_status, status, result)
+            self.result["status"].append((status, getattr(player_status, status))) # 결과 기록용
+            
 
     # 스테이터스 변화 액션
     class ChangeStatus(Action):

@@ -7,7 +7,6 @@
 screen preferences():
 
     button:
-        action NullAction()
         xsize 1700
         ysize 950
         style "center"

@@ -120,10 +120,9 @@ screen schedule_component:
                             SetScreenVariable("nowCondition", ""),
                             SetScreenVariable("scheduleSelect", ""),
                             Function(clearSchedule),
+                            Hide("schedule_component"),
+                            Hide("plain_screen"),
                             Function(goSchedule, scheduleList),
-
-                            # 스케줄 실행하라고 보내는 인자
-                            Return("go_schedule")
                         ]
             
             # scheduleSelect가 False값이면 선택창 띄움

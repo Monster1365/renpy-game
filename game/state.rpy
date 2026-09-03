@@ -11,74 +11,205 @@ init python:
 
     schedule_options = {
         "study1": {
-            "title": "공부방",
+            "title": "글 배우기",
+            "level": 1,
             "status": {
-                "increase": ["intellect", "stress"],
-                "decrease": ["hp"]
+                "intellect": [1, 2],
+                "sociality": [0, 1],
+                "bond": [1, 2],
+                "stress": [1, 1],
+            },
+            "stand": {
+                "key": "intellect",
+                "value": 10,
             },
         },
         "study2": {
-            "title": "애들과 뛰어놀기",
+            "title": "서적 탐독",
+            "level": 2,
             "status": {
-                "increase": ["hp", "strength", "stress"],
-                "decrease": ["stress"]
+                "intellect": [1, 3],
+                "sociality": [0, 1],
+                "bond": [1, 1],
+                "stress": [1, 2],
+            },
+            "stand": {
+                "key": "intellect",
+                "value": 30,
             },
         },
         "study3": {
-            "title": "언어교육",
+            "title": "학문 연마",
+            "level": 3,
             "status": {
-                "increase": ["sociality", "attitude", "stress"],
-                "decrease": []
-            }
+                "intellect": [2, 4],
+                "sociality": [1, 1],
+                "bond": [1, 1],
+                "stress": [2, 3],
+            },
+            "stand": {
+                "key": "intellect",
+                "value": 80,
+            },
         },
         "study4": {
-            "title": "예절수업",
+            "title": "수사학",
+            "level": 3,
             "status": {
-                "increase": ["attitude", "morality", "stress"],
-                "decrease": []
-            }
+                "intellect": [1, 2],
+                "sociality": [1, 4],
+                "bond": [1, 1],
+                "stress": [2, 3],
+            },
+            "stand": {
+                "key": "intellect",
+                "value": 80,
+            },
         },
-        "rest1": {
+        "dress1": {
+            "title": "몸단장",
+            "level": 1,
+            "status": {
+                "attraction": [1, 2],
+                "attitude": [0, 1],
+                "stress": [1, 1],
+            },
+            "stand": {
+                "key": "attraction",
+                "value": 10,
+            },
+        },
+        "dress2": {
+            "title": "옷차림 익히기",
+            "level": 2,
+            "status": {
+                "attraction": [2, 2],
+                "attitude": [0, 2],
+                "stress": [1, 1],
+            },
+            "stand": {
+                "key": "attraction",
+                "value": 30,
+            },
+        },
+        "fight1": {
+            "title": "호신술",
+            "level": 1,
+            "status": {
+                "hp": [1, 3],
+                "strength": [0, 2],
+                "intellect": [0, 1],
+                "stress": [1, 2],
+            },
+            "stand": {
+                "key": "strength",
+                "value": 10,
+            },
+        },
+        "fight2": {
+            "title": "격투술",
+            "level": 2,
+            "status": {
+                "hp": [2, 5],
+                "strength": [1, 4],
+                "intellect": [0, 1],
+                "stress": [2, 4],
+            },
+            "stand": {
+                "key": "strength",
+                "value": 30,
+            },
+        },
+        "manner1": {
+            "title": "기초 예법",
+            "level": 1,
+            "status": {
+                "attraction": [0, 1],
+                "attitude": [1, 2],
+                "stress": [1, 1],
+            },
+            "stand": {
+                "key": "attitude",
+                "value": 10,
+            },
+        },
+        "manner2": {
+            "title": "고급 예법",
+            "level": 2,
+            "status": {
+                "attraction": [0, 1],
+                "attitude": [2, 4],
+                "stress": [1, 2],
+            },
+            "stand": {
+                "key": "attitude",
+                "value": 30,
+            },
+        },
+        "music1": {
+            "title": "음악 입문",
+            "level": 1,
+            "status": {
+                "attraction": [0, 1],
+                "music": [1, 2],
+                "stress": [1, 1],
+            },
+            "stand": {
+                "key": "music",
+                "value": 10,
+            },
+        },
+        "music2": {
+            "title": "피아노 교습",
+            "level": 2,
+            "status": {
+                "attraction": [0, 2],
+                "music": [1, 3],
+                "stress": [1, 2],
+            },
+            "stand": {
+                "key": "music",
+                "value": 10,
+            },
+        },
+        "music3": {
+            "title": "독주회 준비",
+            "level": 3,
+            "status": {
+                "attraction": [0, 2],
+                "music": [2, 5],
+                "stress": [1, 3],
+            },
+            "stand": {
+                "key": "music",
+                "value": 10,
+            },
+        },
+        "mindset": {
             "title": "마음수양",
+            "level": 1,
             "status": {
-                "increase": [],
-                "decrease": ["stress"]
-            }
+                "morality": [1, 2],
+                "stress": [-1, -1],
+            },
         },
-        "rest2": {
+        "reading": {
+            "title": "독서",
+            "level": 1,
+            "status": {
+                "stress": [-1, -1],
+            },
+            # "increase": [50, 100],
+        },
+        "outing": {
             "title": "외출",
+            "level": 1,
             "status": {
-                "increase": ["hp", "sociality"],
-                "decrease": ["morality", "stress"]
-            }
-        },
-        "adventure1": {
-            "title": "adventure1",
-            "status": {
-                "increase": ["hp", "strength"],
-                "decrease": ["stress"]
-            }
-        },
-        "adventure2": {
-            "title": "adventure2",
-            "status": {
-                "increase": ["hp", "strength"],
-                "decrease": ["stress"]
-            }
-        },
-        "adventure3": {
-            "title": "adventure3",
-            "status": {
-                "increase": ["hp", "strength"],
-                "decrease": ["stress"]
-            }
-        },
-        "adventure4": {
-            "title": "adventure4",
-            "status": {
-                "increase": ["hp", "strength"],
-                "decrease": ["stress"]
-            }
+                "hp": [1, 1],
+                "morality": [-1, -1],
+                "sociality": [0, 1],
+                "stress": [-3, -3],
+            },
         },
     }
 
@@ -132,15 +263,19 @@ init python:
             self.stress = 0
             self.sociality = 0
             self.attitude = 0
+            self.recall = 0
+            self.bond = 0
+            self.music = 0
 
     class Times:
         def __init__(self):
             self.current_year = 2026
             self.current_month = 1
             self.current_day = 1
-    class SL: # skill level
+    class Skill: # skill level
         def __init__(self, options):
-            self.sl_dict = dict(zip(list(options.keys()), [1]*len(list(options.keys()))))
+            self.skill_level = dict(zip(list(options.keys()), [1]*len(list(options.keys()))))
+            self.skill_count = dict(zip(list(options.keys()), [0]*len(list(options.keys()))))
 
     class Player:
         """
@@ -152,7 +287,10 @@ init python:
             self.profile = Profile()
             self.status = Status()
             self.times = Times()
-            self.SL = SL(schedule_options)
+            self.skill = Skill(schedule_options)
+
+        def getRatingProp(self):
+            return (self.status.hp, self.status.morality, self.status.stress)
 
     # 아이템 정적 데이터
     class Item:
@@ -229,9 +367,9 @@ init:
     define TIME_DISPLAY = "days" # or weeks
 
     # 기본 설정 값김
-    define MAX_YEAR = 8
+    define MAX_YEAR = 2
     define MAX_MONTH = 12
-    define MAX_DAY = 30
+    define MAX_DAY = 21
 
     # ========================================
 

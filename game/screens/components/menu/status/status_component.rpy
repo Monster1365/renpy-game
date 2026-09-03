@@ -68,4 +68,19 @@ screen status_component():
                         xfill True
                         text "예의:  " color titleColor xalign 0.0
                         text "[player.status.attitude]" color titleColor xalign 1.0
+                    
+                    grid 2 1:
+                        xfill True
+                        text "회상:  " color titleColor xalign 0.0
+                        text "[player.status.recall]" color titleColor xalign 1.0
+                    
+                    grid 2 1:
+                        xfill True
+                        text "유대:  " color titleColor xalign 0.0
+                        text "[player.status.bond]" color titleColor xalign 1.0
+
+                    grid 2 1:
+                        xfill True
+                        text "음악:  " color titleColor xalign 0.0
+                        text "[player.status.music]" color titleColor xalign 1.0
 

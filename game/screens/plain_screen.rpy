@@ -5,21 +5,32 @@
 #
 
 screen plain_screen(inner_screen):
+
     button:
         if inner_screen == "schedule_component" and scheduleSelect:
             action SetScreenVariable("scheduleSelect", "")
+
         elif inner_screen == "schedule_component":
-            action [Function(clearSchedule), Hide(inner_screen), Hide("plain_screen"), Return()]
+            action [
+                Function(clearSchedule),
+                Hide(inner_screen),
+                Hide("plain_screen"),
+                Return()
+            ]
+
         elif inner_screen == "outing_component" and outingSelect:
             action SetVariable("outingSelect", "")
+
         else:
-            action [Hide(inner_screen), Hide("plain_screen"), Return()]
+            action [
+                Hide(inner_screen),
+                Hide("plain_screen"),
+                Return()
+            ]
 
         frame:
             xfill True
             yfill True
-
-            # 색상 코드 위에 두자리 숫자 투명도
             background "#45c18580"
 
             use expression inner_screen

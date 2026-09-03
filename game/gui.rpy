@@ -232,8 +232,8 @@ define gui.slot_button_text_selected_idle_color = gui.selected_color
 define gui.slot_button_text_selected_hover_color = gui.hover_color
 
 ## 저장 슬롯에 사용되는 썸네일의 너비와 높이입니다.
-define config.thumbnail_width = 380 #384
-define config.thumbnail_height = 100 #216
+define config.thumbnail_width = 384
+define config.thumbnail_height = 216
 
 ## 저장 슬롯의 그리드(grid)에서 행(rows)과 열(columns)의 갯수입니다.
 define gui.file_slot_cols = 1

@@ -6,9 +6,9 @@ init python:
     import random
 
 
-
-
-
+################################################################################
+## 메뉴 관련 클래스와 함수
+################################################################################
     ## 메뉴 선택 액션 객체 생성
     ## status, schedule... 등의 버튼을 눌렀을때 선택된 버튼이 Action에 담김
     ## Action을 opion으로 넘겨줌
@@ -36,7 +36,7 @@ init python:
     
     
 ################################################################################
-## 스케줄 관련 클래스와 함수
+## 스케줄 핵심 로직 관련 클래스와 함수
 ################################################################################
 
     # 스케줄화면 나가거나 스케줄 돌릴때 발생, 스케줄 리스트 싹 비움
@@ -330,36 +330,9 @@ init python:
             s = self.status
             p.s += self.variate
 
-## 나중에 구현 할 것
-## 액션 예시
-#     class MyAction(Action):
-#         def __init__(self, label_name):
-#             self.label_name = label_name
-
-#         def __call__(self):
-#             renpy.jump(self.label_name)
-
-
-
-## 아이템 선택
-#     class SelectItem(Action):
-#         def __init__(self, item):
-#             self.item = item
-
-#         def __call__(self):
-#             store.selected_item = self.item
-
-#         def get_selected(self):
-#             return store.selected_item == self.item
-
-
-
-## 스탯 변경
-#     class AddStat(Action):
-#         def __init__(self, stat, amount):
-#             self.stat = stat
-#             self.amount = amount
-
-#         def __call__(self):
-#             setattr(store, self.stat, getattr(store, self.stat) + self.amount)
-
+################################################################################
+## 스케쥴 study_component 관련 함수
+################################################################################
+    # study에서 level에 따라 학습 가능한 스케줄이 다르므로 유동적으로 변하는 ui구현을 위한 함수
+    def show_study_schedule_button():
+        pass

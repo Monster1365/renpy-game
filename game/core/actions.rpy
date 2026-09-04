@@ -146,38 +146,45 @@ init python:
         
         # 체력, 근력, 스트레스 지수를 계산해서 성공확률 구하는 함수
         def calc_rate(self, schedule):
-            hp, morality, stress = renpy.store.player.getRatingProp()
-            stand_key = schedule_options[schedule]["stand"]["key"]
-            stand_val = schedule_options[schedule]["stand"]["value"]
-            player_status = renpy.store.player.status # player.status객체 가져옴
-            now_stand_val = getattr(player_status, stand_key)
+            # 스케줄이 rest이면 따로 예외적으로 처리
+            is_rest = True if schedule in ["mindset", "reading", "outing"] else False
+            
+            if is_rest:
+                result = "best"
 
-            # 1. hp*2 < stress 이면 무조건 fail
-            # 2. 특정스탯 값이 기준을 못넘으면 normal 또는 good
-            # 3. 내 스탯이 특정 기준을 만족할 때 분기
-            # 3-1. hp > stress 이면 best
-            # 3-2. 아니면 결과는 normal, good, best를 모두 가질수 있음
+            else:
+                hp, morality, stress = renpy.store.player.getRatingProp()
+                stand_key = schedule_options[schedule]["stand"]["key"]
+                stand_val = schedule_options[schedule]["stand"]["value"]
+                player_status = renpy.store.player.status # player.status객체 가져옴
+                now_stand_val = getattr(player_status, stand_key)
 
-            #1
-            if hp*2 < stress:
-                result = "fail"
+                # 1. hp*2 < stress 이면 무조건 fail
+                # 2. 특정스탯 값이 기준을 못넘으면 normal 또는 good
+                # 3. 내 스탯이 특정 기준을 만족할 때 분기
+                # 3-1. hp > stress 이면 best
+                # 3-2. 아니면 결과는 normal, good, best를 모두 가질수 있음
 
-            #2
-            elif now_stand_val < stand_val: # 스탯 낮을때
-                #확률 normal, good
-                result = random.choice(["normal", "good"])
+                #1
+                if hp*2 < stress:
+                    result = "fail"
 
-            #3
-            elif stand_val <= now_stand_val:
-                #3-1
-                if hp > stress:
-                    result = "best"
+                #2
+                elif now_stand_val < stand_val: # 스탯 낮을때
+                    #확률 normal, good
+                    result = random.choice(["normal", "good"])
 
-                #3-2
-                elif hp <= stress:
-                    # hp 높을수록 rate낮아짐
-                    rate = (stress - hp) / hp
-                    result = "good" if random.random() < rate else "best"
+                #3
+                elif stand_val <= now_stand_val:
+                    #3-1
+                    if hp > stress:
+                        result = "best"
+
+                    #3-2
+                    elif hp <= stress:
+                        # hp 높을수록 rate낮아짐
+                        rate = (stress - hp) / hp
+                        result = "good" if random.random() < rate else "best"
             
             return result
 
@@ -285,38 +292,65 @@ init python:
         # maximum : int
         # var : list 2D
         def updateStatus(self, schedule): # schedule은 schdule옵션
-            status_dict = schedule_options[schedule]["status"] # 증감시킬 스테이터스 가져오기
-            bound_pass_count = 0
-            if status_dict: # 스테이터스 하나하나 돌면서 증감 실행
-                for key, value in status_dict.items():
-                    if key == "bond":
-                        var = self.p_rate(schedule, minimum, maximum)
-                        self.changeStatus(key, schedule, random.choice(var)) # 유대 스탯 7개중 랜덤으로 하나 선택
-                    else:
-                        if key == "stress":
-                            minimum = value[1]
-                            maximum = value[0]
+            if schedule == "reading":
+                rand_status = random.choice(["intellect", "attraction", "music"])
+                self.changeStatus("stress", schedule, [-1]*7)
+                self.changeStatus(rand_status, schedule, [1]*7)
+            else:
+                status_dict = schedule_options[schedule]["status"] # 증감시킬 스테이터스 가져오기
+                bound_pass_count = 0
+                if status_dict: # 스테이터스 하나하나 돌면서 증감 실행
+                    for key, value in status_dict.items():
+                        if key == "bond":
+                            var = self.p_rate(schedule, minimum, maximum)
+                            self.changeStatus(key, schedule, random.choice(var)) # 유대 스탯 7개중 랜덤으로 하나 선택
+                        elif key == "recall":
+                            self.changeStatus(key, schedule, 1)
                         else:
-                            minimum = value[0] # 증감 최값
-                            maximum = value[1] # 증감 최댓값
-                        var = self.p_rate(schedule, minimum, maximum) # 확률함수 돌려서 증감된 스탯값 리스트로 받음 (7번 실행)
-                        self.changeStatus(key, schedule, var) # 스탯변경 함수 돌리기
+                            if key == "stress":
+                                minimum = value[1]
+                                maximum = value[0]
+                            else:
+                                minimum = value[0] # 증감 최값
+                                maximum = value[1] # 증감 최댓값
+                            var = self.p_rate(schedule, minimum, maximum) # 확률함수 돌려서 증감된 스탯값 리스트로 받음 (7번 실행)
+                            self.changeStatus(key, schedule, var) # 스탯변경 함수 돌리기
+            # 카운트하기
+            self.scheduleCount(schedule)
 
         ## 실제로 스탯 증감값이 변경이 적용되는 함수
-        # 특정 스탯의 7일치 증감값 반영후 결과를  result에 메모
+        # 특정 스탯의 7일치 증감값 반영후 결과를  result에 반영
         def changeStatus(self, status, schedule, var):
             player_status = renpy.store.player.status # player.status객체 가져옴
             if isinstance(var, int):
                 getstatus = getattr(player_status, status)
                 result = var + getstatus
-                setattr(player_status, status, result)
+                if result < 0:
+                    setattr(player_status, status, 0)
+                else:
+                    setattr(player_status, status, result)
             else:
                 for i in var:
                     getstatus = getattr(player_status, status)
                     result = i + getstatus
-                    setattr(player_status, status, result)
+                    if result < 0:
+                        setattr(player_status, status, 0)
+                    else:
+                        setattr(player_status, status, result)
             self.result["status"].append((status, getattr(player_status, status))) # 결과 기록용
-            
+        
+        # 스케줄 실행횟수 카운트하고 자동으로 레벨업 시키는 함수
+        def scheduleCount(self, schedule):
+            key = schedule_options[schedule]["key"]
+
+            # 딕셔너리 키 값이 없을때 예외처리
+            if key in player.skill.skill_level.keys():
+                now_level = player.skill.skill_level[key]
+                now_count = player.skill.skill_count[schedule] + 1
+                max_level = player.skill.max_level[key]
+                player.skill.skill_count[schedule] = now_count
+                if now_count == 10 and now_level < max_level:
+                    player.skill.skill_level[key] += 1
 
     # 스테이터스 변화 액션
     class ChangeStatus(Action):
@@ -335,4 +369,12 @@ init python:
 ################################################################################
     # study에서 level에 따라 학습 가능한 스케줄이 다르므로 유동적으로 변하는 ui구현을 위한 함수
     def show_study_schedule_button():
-        pass
+        player_skill_level = player.skill.skill_level
+        available_schedule =[]
+
+        for schedule, value in schedule_options.items():
+            if schedule in ["mindset", "reading", "outing"]:
+                pass
+            elif value["level"] == player_skill_level[value["key"]]:
+                available_schedule.append(schedule)
+        renpy.store.available_study_schedule_list = available_schedule

@@ -24,7 +24,6 @@ screen inventory_component:
                     xalign 0.5
                     textbutton "Belongings" action SetScreenVariable("inventory_options", "belongings")
                     textbutton "Clothes" action SetScreenVariable("inventory_options", "clothes")
-                    textbutton "Books" action SetScreenVariable("inventory_options", "books")
 
                 # 2. 조건에 따른 내용 표시
                 if inventory_options == "belongings":
@@ -32,9 +31,6 @@ screen inventory_component:
                                     
                 elif inventory_options == "clothes":
                     use clothes_component
-                    
-                elif inventory_options == "books":
-                    use books_component
 
             # vpgrid:
             #     cols 4 # 열의 개수 고정, 행은 아이템 수에 따라 자동 생성

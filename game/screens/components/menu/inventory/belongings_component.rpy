@@ -10,6 +10,6 @@ screen belongings_component:
             draggable True
             scrollbars "vertical"
 
-            for key, value in items_quantity["belongings"].items():
-                if value > 0:
+            for key, value in ITEMS_DB.items():
+                if (item_data[key]["type"] == "belongings") and (value.quantity > 0):
                     use itembox(key)

@@ -138,7 +138,7 @@ screen schedule_component:
                         background "#aaa9ca"
                         tooltip "학습에 대한 설명..."
                         text "학습"
-                        action SetScreenVariable("scheduleSelect", "study")
+                        action [SetScreenVariable("scheduleSelect", "study"), Function(show_study_schedule_button)]
 
                     button:
                         xsize 500

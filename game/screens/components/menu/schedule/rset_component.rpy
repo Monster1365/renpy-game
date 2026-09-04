@@ -2,7 +2,7 @@ screen rest_component():
     grid 2 2:
         spacing 10
 
-        for i in ["rest1", "rest2"]:
+        for i in ["mindset", "reading", "outing"]:
             button:
                 style "schedule_cmp_button"
                 text [schedule_options[i]["title"]]

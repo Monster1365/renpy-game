@@ -1,5 +1,5 @@
 screen itembox(key):
-    default item = ITEMS_DB[key]
+    default item = item_data[key]
     default img = ""
 
     button:
@@ -10,7 +10,7 @@ screen itembox(key):
             if img:
                 pass
             else:
-                text item.title
+                text item["title"]
 
             hbox:
                 pass

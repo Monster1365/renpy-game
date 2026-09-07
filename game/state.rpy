@@ -289,17 +289,98 @@ init python:
                     "rate": 20
                     "habitat": ["street", "swamp", "mountain"],
                 },
-                "fox": {},
-                "wolf": {},
-                "boar": {},
-                "bear": {},
+                "fox": {
+                    "hp": 60,
+                    "attack": 15,
+                    "defense": 5,
+                    "money": [10, 20],
+                    "drop": ["fox_fur"],
+                    "rate": 20
+                    "habitat": ["swamp", "mountain"],
+                },
+                "wolf": {
+                    "hp": 140,
+                    "attack": 32,
+                    "defense": 16,
+                    "money": [40, 70],
+                    "drop": ["fang"],
+                    "rate": 20
+                    "habitat": ["swamp", "mountain"],
+                },
+                "boar": {
+                    "hp": 220,
+                    "attack": 38,
+                    "defense": 30,
+                    "money": [50, 100],
+                    "drop": ["boar_tooth"],
+                    "rate": 20
+                    "habitat": ["swamp", "mountain"],
+                },
+                "bear": {
+                    "hp": 420,
+                    "attack": 55,
+                    "defense": 45,
+                    "money": [180, 260],
+                    "drop": ["bear_skin"],
+                    "rate": 20
+                    "habitat": ["swamp", "mountain"],
+                },
             },
             "human": {
-                "bandit": {},
-                "pickpocket": {},
-                "scammer": {},
-                "swampwoman": {},
-                "peddler": {},
+                "bandit": {
+                    "hp": 180,
+                    "attack": 35,
+                    "defense": 20,
+                    "money": [120, 180],
+                    "drop": ["knife"],
+                    "rate": 20
+                    "habitat": ["mountain"],
+                },
+                "pickpocket": {
+                    "hp": 90,
+                    "attack": 20,
+                    "defense": 8,
+                    "money": [40, 100],
+                    "drop": [],
+                    "rate": 20
+                    "habitat": ["street"],
+                },
+                "scammer": {
+                    "hp": 120,
+                    "attack": 10,
+                    "defense": 12,
+                    "money": [20, 80],
+                    "drop": [],
+                    "rate": 20
+                    "habitat": ["street"],
+                },
+                "swampwoman": {
+                    "hp": 260,
+                    "attack": 42,
+                    "defense": 28,
+                    "money": [20, 150],
+                    "drop": [], # 기억조각
+                    "rate": 20
+                    "habitat": ["swamp", "around_swamp"],
+                },
+                "peddler": {
+                    "hp": 170,
+                    "attack": 20,
+                    "defense": 35,
+                    "money": [15, 30],
+                    "drop": [], # 고급아이템
+                    "rate": 20
+                    "habitat": ["swamp", "mountain"],
+                },
+                "traitor": {
+                    "hp": 300,
+                    "attack": 70,
+                    "defense": 50,
+                    "money": [0, 0],
+                    "drop": [],
+                    "rate": 20
+                    "habitat": ["mountain"],
+                },
             },
         },
     }
@@ -719,6 +800,25 @@ init python:
             self.name = name
             self.quantity = quantity
             self.equipped = equipped
+    
+    class Monster:
+        def __init__(self, name, hp, attack, defense, money, drop, rate):
+            self.name = name
+            self.hp = hp
+            self.attack = attack
+            self.defense = defense
+            self.money = money
+            self.drop = drop
+            self.rate = rate
+        
+        def takeDamage(self, var):
+            self.hp = (self.hp + self.defense) - var
+        def attack(self):
+            pass
+        def dropMoney(self):
+            pass # 랜덤함수
+        def dropItem(self):
+            pass # 랜덤함수
 
 init: # 렌파이에 저장되는 동적 변수
 ################################################################################

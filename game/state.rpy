@@ -818,10 +818,14 @@ init python:
             self.current_month = 1
             self.current_day = 1
         
+        ## return day:int, month:int, year:int
+        def getAllTimes(self):
+            return (self.current_day, self.current_month, self.current_year)
+
         def advance(self, day=1, month=0, year=0):
             next_day = self.current_day + day
             next_month = self.current_month + month
-            next_year = self.year + year
+            next_year = self.current_year + year
 
             if next_day > MAX_DAY:
                 next_day = 1

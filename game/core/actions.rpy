@@ -267,23 +267,12 @@ init python:
         
         # 수정할 것 한달 21일, 스케줄단위 일주일
         def passTime(self):
-            player = renpy.store.player
-            year = player.times.current_year
-            month = player.times.current_month
-            day = player.times.current_day
+            player_times = renpy.store.player.times
+            day, month, year = player_times.getAllTimes()
             self.result["time"] = str(year)+"."+str(month)+"."+str(day)
-            if day == 15:
-                day = 1
-                month += 1
-                if month == 12:
-                    month = 1
-                    year +=1
-            else:
-                day += 7
+            player.times.advance(7)
+            day, month, year = player_times.getAllTimes()
             self.result["pass_time"] = str(year)+"."+str(month)+"."+str(day)
-            player.times.current_year = year
-            player.times.current_month = month
-            player.times.current_day = day
 
         ## 스케줄의 스탯의 확률을 구하고 변경을 돌리는 함수
         # status_dict : dict

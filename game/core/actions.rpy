@@ -377,17 +377,22 @@ init python:
         else:
             renpy.store.canBuy = False
             renpy.store.outing_buy_btn_text = "돈이 부족합니다."
-            #renpy.restart_interaction()
     
     def consumRestaurantItem(item):
         player = renpy.store.player
         status = item["status"]
+        price = -item["price"]
         result = []
 
+        # 돈 계산
+        player.profile.addMoney(price)
+
+        # 스테이터스 증감
         for key, value in status.items():
             player.status.addStatus(key, value)
             result.append([key, str(value)])
         
+        # UI 띄우는 옵션
         renpy.store.outing_buy_result_frame = True
         renpy.store.outing_buy_result = result
 

@@ -715,7 +715,11 @@ init python:
             self.birthday = None
             self.age = 10
             self.money = 600
-    
+        
+        def addMoney(self, var):
+            tmp = self.money + var
+            self.money = 0 if tmp < 0  else tmp
+            
     # 플레이어 스테이터스
     class Status:
         def __init__(self):

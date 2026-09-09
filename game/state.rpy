@@ -944,6 +944,21 @@ init python:
         def dropItem(self):
             pass # 랜덤함수
     
+    class Impression:
+        def __init__(self, relation, affection):
+            self.relation = relation
+            self.affection = affection
+        
+        def addImpression(self, var):
+            self.relation += var
+        
+        def addArrection(self, var):
+            tmp = self.affection + var
+            if tmp <= 0:
+                self.affection = 0
+            else:
+                self.affection = tmp
+
     class Relationship:
         def __init__(self, relation, affection):
             self.relation = relation
@@ -966,6 +981,7 @@ init python:
         def __init__(self, name, relation, affection):
             self.name = name
             self.relation = Relationship(relation, affection)
+            self.Impression = Impression(relation, affection) 
 
 init: # 렌파이에 저장되는 동적 변수
 ################################################################################

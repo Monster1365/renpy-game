@@ -22,7 +22,7 @@ screen plain_screen(inner_screen):
             action SetVariable("outingSelect", "")
         
         elif inner_screen == "outing_component" and outingItemSelect and outing_buy_result_frame:
-            action [SetVariable("outing_buy_result_frame", False), Hide("outing_buy_result")]
+            action [SetVariable("outing_buy_result_frame", False), SetVariable("outing_buy_btn_text", "정말 구매하시겠습니까?"), Hide("outing_buy_result")]
         
         elif inner_screen == "outing_component" and outingItemSelect and not canBuy:
             action [SetVariable("canBuy", True), Hide("outing_buy_btn")]

@@ -395,6 +395,16 @@ init python:
         # UI 띄우는 옵션
         renpy.store.outing_buy_result_frame = True
         renpy.store.outing_buy_result = result
+        renpy.show_screen("outing_buy_result")
 
     def buyItemDetail(item):
-        pass
+        # 객체 가져오기
+        # 돈 계산하기
+        # 아이템 수량 증가
+        item_obj = ITEMS_DB[item["name"]]
+        player = renpy.store.player
+        price = -item["price"]
+
+        # 돈 계산
+        player.profile.addMoney(price)
+        item_obj.addQuantity(1)

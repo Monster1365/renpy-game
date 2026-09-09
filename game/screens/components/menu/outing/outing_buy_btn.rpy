@@ -19,7 +19,7 @@ screen outing_buy_btn(item):
                         text "구매"
                         background "#4de342"
 
-                        action [Function(buyItem, item), Show("outing_buy_result")]
+                        action Function(buyItem, item)
 
                     else:
                         text "구매불가"

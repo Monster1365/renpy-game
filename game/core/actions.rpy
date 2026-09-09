@@ -323,21 +323,12 @@ init python:
         def changeStatus(self, status, schedule, var):
             player_status = renpy.store.player.status # player.status객체 가져옴
             if isinstance(var, int):
-                getstatus = getattr(player_status, status)
-                result = var + getstatus
-                if result < 0:
-                    setattr(player_status, status, 0)
-                else:
-                    setattr(player_status, status, result)
+                player_status.addStatus(status, var)
             else:
                 for i in var:
-                    getstatus = getattr(player_status, status)
-                    result = i + getstatus
-                    if result < 0:
-                        setattr(player_status, status, 0)
-                    else:
-                        setattr(player_status, status, result)
-            self.result["status"].append((status, getattr(player_status, status))) # 결과 기록용
+                    player_status.addStatus(status, i)
+
+            self.result["status"].append((status, player_status.getStatus(status))) # 결과 기록용
         
         # 스케줄 실행횟수 카운트하고 자동으로 레벨업 시키는 함수
         def scheduleCount(self, schedule):

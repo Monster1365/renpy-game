@@ -34,7 +34,6 @@ init python:
         def get_sensitive(self):
             return self.option in menu_btn_options
     
-    
 ################################################################################
 ## 스케줄 핵심 로직 관련 클래스와 함수
 ################################################################################
@@ -378,3 +377,38 @@ init python:
             elif value["level"] == player_skill_level[value["key"]]:
                 available_schedule.append(schedule)
         renpy.store.available_study_schedule_list = available_schedule
+
+################################################################################
+## outing 관련 함수
+################################################################################
+    def buyItem(item_name): # item -> str
+        player_money = player.profile.money
+        item = item_data[item_name]
+        item_price = item["price"]
+
+        if player_money >= item_price:
+
+            # 즉시소모 아이템이면 if문 실행
+            if item["isConsumable"] and item["category"] == "restaurant": # 음식
+                consumRestaurantItem(item)
+            else:
+                buyItemDetail(item)
+        else:
+            renpy.store.canBuy = False
+            renpy.store.outing_buy_btn_text = "돈이 부족합니다."
+            #renpy.restart_interaction()
+    
+    def consumRestaurantItem(item):
+        player = renpy.store.player
+        status = item["status"]
+        result = []
+
+        for key, value in status.items():
+            player.status.addStatus(key, value)
+            result.append([key, str(value)])
+        
+        renpy.store.outing_buy_result_frame = True
+        renpy.store.outing_buy_result = result
+
+    def buyItemDetail(item):
+        pass

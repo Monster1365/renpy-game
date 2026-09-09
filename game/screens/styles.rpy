@@ -33,3 +33,16 @@ style outing_choice_cmp_button:
     ysize 100
     padding (10, 10, 10, 10)
     background "#a4f43c"
+
+style outing_buy_frame:
+    xsize 400
+    ysize 220
+    padding (20, 20)
+    background "#706ddb"
+
+style outing_buy_result_frame:
+    xsize 700
+    ysize 200
+    padding (10, 10, 10, 10)
+    background "#ceb1fc"
+    align (0.5, 0.5)

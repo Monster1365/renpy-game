@@ -18,8 +18,17 @@ screen plain_screen(inner_screen):
                 Return()
             ]
 
-        elif inner_screen == "outing_component" and outingSelect:
+        elif inner_screen == "outing_component" and outingSelect and not outingItemSelect:
             action SetVariable("outingSelect", "")
+        
+        elif inner_screen == "outing_component" and outingItemSelect and outing_buy_result_frame:
+            action [SetVariable("outing_buy_result_frame", False), Hide("outing_buy_result")]
+        
+        elif inner_screen == "outing_component" and outingItemSelect and not canBuy:
+            action [SetVariable("canBuy", True), Hide("outing_buy_btn")]
+        
+        elif inner_screen == "outing_component" and outingItemSelect:
+            action [SetVariable("outingItemSelect", ""), Hide("outing_buy_btn")]
 
         else:
             action [

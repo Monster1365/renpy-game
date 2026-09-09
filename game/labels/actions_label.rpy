@@ -33,7 +33,3 @@ label setting_label:
     call screen plain_screen(inner_screen="preferences")
     $ is_visible_setting_btn=True
     jump main_loop
-
-label schedule_test:
-    call screen plain_screen(inner_screen="preferences")
-    jump main_loop

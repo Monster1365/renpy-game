@@ -1,6 +1,7 @@
 ## 기본 변수 설정
-## 메모 1. 몬스터 딕셔너리: 변하지 않는 몬스터에 대한 정적 데이터를 담는 용도
-## 메모 2. 몬스터 객체: 몬스터의 상태, 행동을 관리하기 위한 용도
+## 메모 1. 딕셔너리 data: 변하지 않는 상태나 정보값에 대한 정적 데이터를 담는 용도
+## 메모 2. 객체: 변하는 상태, 행동을 관리하기 위한 용도
+## 메모 3. DB: 객체를 생성하고 초기화하기 위한 용도
 #
 init python:
 ################################################################################
@@ -238,6 +239,7 @@ init python:
 
     outing_options = {
         "outing1": {
+            "category": "restaurant",
             "title": "restaurant",
             "choice": {
                 "choice1": "dish1",
@@ -245,21 +247,8 @@ init python:
             },
         },
         "outing2": {
-            "title": "variety store",
-            "choice": {
-                "choice1": "dish1",
-                "choice2": "dish2",
-            },
-        },
-        "outing3": {
-            "title": "cathedral",
-            "choice": {
-                "choice1": "dish1",
-                "choice2": "dish2",
-            },
-        },
-        "outing4": {
-            "title": "hospital",
+            "category": "general_store",
+            "title": "general store",
             "choice": {
                 "choice1": "dish1",
                 "choice2": "dish2",
@@ -267,121 +256,131 @@ init python:
         },
     }
 
-    # 모든 캐릭터 정적 문서 데이터
-    character_data = {
-        "schedule": {
-            "teacher": {
-                "attraction": {},
-                "fight": {},
-                "attitude": {},
-                "music": {},
-                "mindset": {},
+    sub_character_data = {
+        "teacher": {
+            "attraction": {},
+            "fight": {},
+            "attitude": {},
+            "music": {},
+            "mindset": {},
+        },
+    }
+
+    monster_data = {
+        "nothuman": {
+            "dogs": {
+                "hp": 80,
+                "attack": 18,
+                "defense": 8,
+                "money": [15, 30],
+                "drop": ["dog_meet", "dog_skin"],
+                "rate": 20,
+                "habitat": ["street", "swamp", "mountain"],
+            },
+            "fox": {
+                "hp": 60,
+                "attack": 15,
+                "defense": 5,
+                "money": [10, 20],
+                "drop": ["fox_fur"],
+                "rate": 20,
+                "habitat": ["swamp", "mountain"],
+            },
+            "wolf": {
+                "hp": 140,
+                "attack": 32,
+                "defense": 16,
+                "money": [40, 70],
+                "drop": ["fang"],
+                "rate": 20,
+                "habitat": ["swamp", "mountain"],
+            },
+            "boar": {
+                "hp": 220,
+                "attack": 38,
+                "defense": 30,
+                "money": [50, 100],
+                "drop": ["boar_tooth"],
+                "rate": 20,
+                "habitat": ["swamp", "mountain"],
+            },
+            "bear": {
+                "hp": 420,
+                "attack": 55,
+                "defense": 45,
+                "money": [180, 260],
+                "drop": ["bear_skin"],
+                "rate": 20,
+                "habitat": ["swamp", "mountain"],
             },
         },
-        "monster": {
-            "nothuman": {
-                "dogs": {
-                    "hp": 80,
-                    "attack": 18,
-                    "defense": 8,
-                    "money": [15, 30],
-                    "drop": ["dog_meet", "dog_skin"],
-                    "rate": 20
-                    "habitat": ["street", "swamp", "mountain"],
-                },
-                "fox": {
-                    "hp": 60,
-                    "attack": 15,
-                    "defense": 5,
-                    "money": [10, 20],
-                    "drop": ["fox_fur"],
-                    "rate": 20
-                    "habitat": ["swamp", "mountain"],
-                },
-                "wolf": {
-                    "hp": 140,
-                    "attack": 32,
-                    "defense": 16,
-                    "money": [40, 70],
-                    "drop": ["fang"],
-                    "rate": 20
-                    "habitat": ["swamp", "mountain"],
-                },
-                "boar": {
-                    "hp": 220,
-                    "attack": 38,
-                    "defense": 30,
-                    "money": [50, 100],
-                    "drop": ["boar_tooth"],
-                    "rate": 20
-                    "habitat": ["swamp", "mountain"],
-                },
-                "bear": {
-                    "hp": 420,
-                    "attack": 55,
-                    "defense": 45,
-                    "money": [180, 260],
-                    "drop": ["bear_skin"],
-                    "rate": 20
-                    "habitat": ["swamp", "mountain"],
-                },
+        "human": {
+            "bandit": {
+                "hp": 180,
+                "attack": 35,
+                "defense": 20,
+                "money": [120, 180],
+                "drop": ["knife"],
+                "rate": 20,
+                "habitat": ["mountain"],
             },
-            "human": {
-                "bandit": {
-                    "hp": 180,
-                    "attack": 35,
-                    "defense": 20,
-                    "money": [120, 180],
-                    "drop": ["knife"],
-                    "rate": 20
-                    "habitat": ["mountain"],
-                },
-                "pickpocket": {
-                    "hp": 90,
-                    "attack": 20,
-                    "defense": 8,
-                    "money": [40, 100],
-                    "drop": [],
-                    "rate": 20
-                    "habitat": ["street"],
-                },
-                "scammer": {
-                    "hp": 120,
-                    "attack": 10,
-                    "defense": 12,
-                    "money": [20, 80],
-                    "drop": [],
-                    "rate": 20
-                    "habitat": ["street"],
-                },
-                "swampwoman": {
-                    "hp": 260,
-                    "attack": 42,
-                    "defense": 28,
-                    "money": [20, 150],
-                    "drop": [], # 기억조각
-                    "rate": 20
-                    "habitat": ["swamp", "around_swamp"],
-                },
-                "peddler": {
-                    "hp": 170,
-                    "attack": 20,
-                    "defense": 35,
-                    "money": [15, 30],
-                    "drop": [], # 고급아이템
-                    "rate": 20
-                    "habitat": ["swamp", "mountain"],
-                },
-                "traitor": {
-                    "hp": 300,
-                    "attack": 70,
-                    "defense": 50,
-                    "money": [0, 0],
-                    "drop": [],
-                    "rate": 20
-                    "habitat": ["mountain"],
-                },
+            "pickpocket": {
+                "hp": 90,
+                "attack": 20,
+                "defense": 8,
+                "money": [40, 100],
+                "drop": [],
+                "rate": 20,
+                "habitat": ["street"],
             },
+            "scammer": {
+                "hp": 120,
+                "attack": 10,
+                "defense": 12,
+                "money": [20, 80],
+                "drop": [],
+                "rate": 20,
+                "habitat": ["street"],
+            },
+            "swampwoman": {
+                "hp": 260,
+                "attack": 42,
+                "defense": 28,
+                "money": [20, 150],
+                "drop": [], # 기억조각
+                "rate": 20,
+                "habitat": ["swamp", "around_swamp"],
+            },
+            "peddler": {
+                "hp": 170,
+                "attack": 20,
+                "defense": 35,
+                "money": [15, 30],
+                "drop": [], # 고급아이템
+                "rate": 20,
+                "habitat": ["swamp", "mountain"],
+            },
+            "traitor": {
+                "hp": 300,
+                "attack": 70,
+                "defense": 50,
+                "money": [0, 0],
+                "drop": [],
+                "rate": 20,
+                "habitat": ["mountain"],
+            },
+        },
+    }
+
+    main_character_data = {
+        "character1": {
+            "name": "character1",
+        },
+        "character2": {
+            "name": "character2",
+        },
+        "character3": {
+            "name": "character3",
         },
     }
 
@@ -389,7 +388,7 @@ init python:
         "rye_bread": {
             "id": 1,
             "type": "belongings",
-            "category": "eatery_store",
+            "category": "restaurant",
             "title": "호밀빵",
             "description": "호밀빵이다. 체력을 15증가시키고 근력을 5증가시킨다.",
             "price": 180,
@@ -407,7 +406,7 @@ init python:
         "roast": {
             "id": 2,
             "type": "belongings",
-            "category": "eatery_store",
+            "category": "restaurant",
             "title": "고기구이",
             "description": "고기구이다.",
             "price": 420,
@@ -425,7 +424,7 @@ init python:
         "stew": {
             "id": 3,
             "type": "belongings",
-            "category": "eatery_store",
+            "category": "restaurant",
             "title": "스튜",
             "description": "스튜이다.",
             "price": 200,
@@ -731,13 +730,75 @@ init python:
             self.recall = 0 # 회상
             self.bond = 0 # 유대
             self.music = 0 #음악
+        
+        def addStatus(self, status, var):
+            if status == "hp":
+                tmp = self.hp + var
+                self.hp = tmp if tmp > 0 else 0
+
+            elif status == "strength":
+                tmp = self.strength + var
+                self.strength = tmp if tmp > 0 else 0
+
+            elif status == "attraction":
+                tmp = self.attraction + var
+                self.attraction = tmp if tmp > 0 else 0
+
+            elif status == "morality":
+                tmp = self.morality + var
+                self.morality = tmp if tmp > 0 else 0
+
+            elif status == "intellect":
+                tmp = self.intellect + var
+                self.intellect = tmp if tmp > 0 else 0
+
+            elif status == "stress":
+                tmp = self.stress + var
+                self.stress = tmp if tmp > 0 else 0
+            
+            elif status == "sociality":
+                tmp = self.sociality + var
+                self.sociality = tmp if tmp > 0 else 0
+            
+            elif status == "attitude":
+                tmp = self.attitude + var
+                self.attitude = tmp if tmp > 0 else 0
+            
+            elif status == "recall":
+                tmp = self.recall + var
+                self.recall = tmp if tmp > 0 else 0
+            
+            elif status == "bond":
+                tmp = self.bond + var
+                self.bond = tmp if tmp > 0 else 0
+
+            elif status == "music":
+                tmp = self.music + var
+                self.music = tmp if tmp > 0 else 0
 
     # 게임 날짜
+    # todo
     class Times:
         def __init__(self):
             self.current_year = 2026
             self.current_month = 1
             self.current_day = 1
+        
+        def advance(self, day=1, month=0, year=0):
+            next_day = self.current_day + day
+            next_month = self.current_month + month
+            next_year = self.year + year
+
+            if next_day > MAX_DAY:
+                next_day = 1
+                next_month += 1
+            if next_month > MAX_MONTH:
+                next_month = 1
+                next_year += 1
+
+            self.current_day = next_day
+            self.current_month = next_month
+            self.current_year = next_year
 
     # 스케줄 레벨
     class Skill: # skill level
@@ -788,9 +849,6 @@ init python:
         def getRatingProp(self):
             return (self.status.hp, self.status.morality, self.status.stress)
 
-    # class Character:
-    #     pass
-    # 아이템 정적 데이터
     class Item:
         """
         quantity: number | default = 0,
@@ -819,6 +877,29 @@ init python:
             pass # 랜덤함수
         def dropItem(self):
             pass # 랜덤함수
+    
+    class Relationship:
+        def __init__(self, relation, affection):
+            self.relation = relation
+            self.affection = affection
+        
+        def addRelation(self, var):
+            self.relation += var
+        
+        def addArrection(self, var):
+            tmp = self.affection + var
+            if tmp <= 0:
+                self.affection = 0
+            else:
+                self.affection = tmp
+        
+        def getRelation(self):
+            pass
+
+    class MainCharacter:
+        def __init__(self, name, relation, affection):
+            self.name = name
+            self.relation = Relationship(relation, affection)
 
 init: # 렌파이에 저장되는 동적 변수
 ################################################################################
@@ -888,6 +969,16 @@ init: # 렌파이에 저장되는 동적 변수
 
     default outingSelect = ""
 
+    default outingItemSelect = ""
+
+    default outing_buy_btn_text = "정말 구매하시겠습니까?"
+
+    default canBuy = True
+
+    default outing_buy_result_frame = False
+
+    default outing_buy_result = []
+
 ################################################################################
 ## 객체 생성
 ################################################################################
@@ -896,7 +987,12 @@ init: # 렌파이에 저장되는 동적 변수
     # 플레이어 객체
     default player = Player()
 
-    #CHARACTER_DB
+    # 메인 캐릭터 초기화
+    default MAINCHARACTER_DB = {
+        "character1": MainCharacter(name="character1", relation=0, affection=0),
+        "character2": MainCharacter(name="character2", relation=0, affection=0),
+        "character3": MainCharacter(name="character3", relation=0, affection=0),
+    }
     
     # 게임 아이템 초기화
     default ITEMS_DB = {

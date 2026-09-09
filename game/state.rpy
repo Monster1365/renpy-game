@@ -775,9 +775,43 @@ init python:
             elif status == "music":
                 tmp = self.music + var
                 self.music = tmp if tmp > 0 else 0
+        def getStatus(self, status):
+            if status == "hp":
+                return self.hp
+
+            elif status == "strength":
+                return self.strength
+
+            elif status == "attraction":
+                return self.attraction
+
+            elif status == "morality":
+                return self.morality
+
+            elif status == "intellect":
+                return self.intellect
+
+            elif status == "stress":
+                return self.stress
+            
+            elif status == "sociality":
+                return self.sociality
+            
+            elif status == "attitude":
+                return self.attitude
+            
+            elif status == "recall":
+                return self.recall
+            
+            elif status == "bond":
+                return self.bond
+
+            elif status == "music":
+                return self.music
 
     # 게임 날짜
     # todo
+    # 스케줄 passTime메서드 수정
     class Times:
         def __init__(self):
             self.current_year = 2026

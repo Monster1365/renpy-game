@@ -319,6 +319,7 @@ init python:
 
         ## 실제로 스탯 증감값이 변경이 적용되는 함수
         # 특정 스탯의 7일치 증감값 반영후 결과를  result에 반영
+        # todo
         def changeStatus(self, status, schedule, var):
             player_status = renpy.store.player.status # player.status객체 가져옴
             if isinstance(var, int):

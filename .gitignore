@@ -25,3 +25,6 @@
 /dialogue.tab
 /dialogue.txt
 /strings.json
+
+/.vscode
+/.DS_Store

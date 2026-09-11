@@ -19,7 +19,7 @@ screen outing_choice_component(select):
                                 text [value["title"]]
                                 # action [SetVariable("outingSelect", ""), Return()]
                                 action [SetVariable("outingItemSelect", key), Hide("outing_component"), Show("outing_buy_btn", item=key)]
-            else:
+            elif outing_options[select]["category"] == "restaurant":
                 vpgrid:
                     cols 2
                     spacing 10
@@ -32,3 +32,19 @@ screen outing_choice_component(select):
                                 text [value["title"]]
                                 # action [SetVariable("outingSelect", ""), Return()]
                                 action [SetVariable("outingItemSelect", key), Hide("outing_component"), Show("outing_buy_btn", item=key)]
+            else:
+                button:
+                    align (0.5, 0.5)
+                    xsize 200
+                    ysize 100
+                    background "#ceb1fc"
+                    
+                    text "test"
+                    action [
+                        SetVariable("outingSelect", ""),
+                        Hide("outing_component"),
+                        Hide("plain_screen"),
+                        Hide("main_screen"),
+                        SetVariable("is_visible_menu", True),
+                        Jump("adventure_label")
+                    ]

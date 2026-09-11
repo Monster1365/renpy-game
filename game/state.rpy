@@ -241,18 +241,14 @@ init python:
         "outing1": {
             "category": "restaurant",
             "title": "restaurant",
-            "choice": {
-                "choice1": "dish1",
-                "choice2": "dish2",
-            },
         },
         "outing2": {
             "category": "general_store",
             "title": "general store",
-            "choice": {
-                "choice1": "dish1",
-                "choice2": "dish2",
-            },
+        },
+        "outing3": {
+            "category": "adventure",
+            "title": "adventure",
         },
     }
 
@@ -895,6 +891,30 @@ init python:
                 "music3": 0,
             }
 
+    class Position:
+        def __init__(self):
+            self.x = 0
+            self.y = 0
+
+        def getPositions(self):
+            return (self.x, self.y)
+
+        def getPositionX(self):
+            return self.x
+
+        def getPositionY(self):
+            return self.y
+
+        def setPositions(self, x, y):
+            self.x = x
+            self.y = y
+
+        def setPositionX(self, x):
+            self.x = x
+
+        def setPositionY(self, y):
+            self.y = y
+
     # 플레이어
     class Player:
         """
@@ -907,6 +927,7 @@ init python:
             self.status = Status()
             self.times = Times()
             self.skill = Skill(schedule_options)
+            self.position = Position()
 
         def getRatingProp(self):
             return (self.status.hp, self.status.morality, self.status.stress)

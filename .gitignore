@@ -28,3 +28,5 @@
 
 /.vscode
 /.DS_Store
+/game/.DS_Store
+/game/**/.DS_Store
